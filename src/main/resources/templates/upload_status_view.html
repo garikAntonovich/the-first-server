@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload progress page</title>
+</head>
+<body style="background-color: lightpink">
+    <h2><pre> Upload progress page!</pre></h2>
+
+    <div th:if="${message}">
+        <pre><h3><span th:text="${message}" ></span></h3></pre>
+    </div>
+    <div>
+        <span><a href="/"><h3><pre>Upload more files</pre></h3></a></span>
+    </div>
+
+</body>
+</html>
