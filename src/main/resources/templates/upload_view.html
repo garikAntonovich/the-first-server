@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Upload page</title>
 </head>
 <body style="background-color: lightpink">
     <h2><pre> Hello! Welcome to the upload page!</pre></h2>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <pre> <input type="file" name="files" multiple></pre>
-        <pre>   <input type="submit" value="Upload files"></pre>
+    <form action="/upload-status" method="post" enctype="multipart/form-data">
+        <pre> <input type="file" name="file"></pre>
+        <pre>   <input type="submit" value="Upload file"></pre>
     </form>
 
 </body>
