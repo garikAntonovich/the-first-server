@@ -15,6 +15,7 @@ public class FileUploadService {
             ZipEntry entry;
             String name;
             long size;
+            System.out.println(file.getOriginalFilename());
             while ((entry = zin.getNextEntry()) != null) {
                 name = entry.getName();
                 size = entry.getSize();
@@ -24,6 +25,5 @@ public class FileUploadService {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-        System.out.println(file.getOriginalFilename());
     }
 }

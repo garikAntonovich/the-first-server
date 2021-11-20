@@ -28,6 +28,6 @@ public class FileUploadController {
     @ResponseBody
     public String uploadStatus(@RequestParam("file") MultipartFile file) {
         fileUploadService.readZip(file);
-        return file.getOriginalFilename();
+        return file.getOriginalFilename() + " was uploaded successfully!";
     }
 }
