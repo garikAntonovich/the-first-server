@@ -1,13 +1,15 @@
-package by.iharantanovich.thefirstserver;
+package by.iharantanovich.thefirstserver.service;
 
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+@Service
 public class FileUploadService {
 
-    public static void method(MultipartFile file) {
+    public void readZip(MultipartFile file) {
 
         try (ZipInputStream zin = new ZipInputStream(file.getInputStream())) {
             ZipEntry entry;
