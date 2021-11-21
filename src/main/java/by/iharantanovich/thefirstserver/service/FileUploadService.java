@@ -3,17 +3,17 @@ package by.iharantanovich.thefirstserver.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 @Service
 public class FileUploadService {
 
-    public List<String> readZip(MultipartFile file) {
+    public Map<String, String> readZip(MultipartFile file) {
 
-        List<String> xmlFiles = new ArrayList<>();
+        Map<String, String> xmlFiles = new HashMap<>();
 
         try {
             ZipInputStream zis = new ZipInputStream(file.getInputStream());
@@ -21,7 +21,7 @@ public class FileUploadService {
 
             while ((zipEntry = zis.getNextEntry()) != null) {
                 byte[] bytes = zis.readNBytes((int) zipEntry.getSize());
-                xmlFiles.add(new String(bytes));
+                xmlFiles.put(zipEntry.getName(), new String(bytes));
                 zis.closeEntry();
             }
             zis.close();
