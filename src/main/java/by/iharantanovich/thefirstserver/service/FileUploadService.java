@@ -3,27 +3,33 @@ package by.iharantanovich.thefirstserver.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 @Service
 public class FileUploadService {
 
-    public void readZip(MultipartFile file) {
+    public List<String> readZip(MultipartFile file) {
 
-        try (ZipInputStream zin = new ZipInputStream(file.getInputStream())) {
-            ZipEntry entry;
-            String name;
-            long size;
-            System.out.println(file.getOriginalFilename());
-            while ((entry = zin.getNextEntry()) != null) {
-                name = entry.getName();
-                size = entry.getSize();
-                System.out.printf("File name: %s \t File size: %d \n", name, size);
-                zin.closeEntry();
+        List<String> xmlFiles = new ArrayList<>();
+
+        try {
+            ZipInputStream zis = new ZipInputStream(file.getInputStream());
+            ZipEntry zipEntry;
+
+            while ((zipEntry = zis.getNextEntry()) != null) {
+                byte[] bytes = zis.readNBytes((int) zipEntry.getSize());
+                xmlFiles.add(new String(bytes));
+                zis.closeEntry();
             }
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            zis.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        return xmlFiles;
     }
 }
