@@ -6,7 +6,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
-//@XmlType(propOrder = {"docNum", "docDate", "docDateOld", "accNum", "reportTypeFlag", "codeOkeu", "doc", "executorSFP", "executorPost"})
 @XmlRootElement(name = "SKP_REPORT_KS")
 public class MainXmlRoot {
 
