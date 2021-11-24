@@ -1,5 +1,6 @@
 package by.iharantanovich.thefirstserver.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,7 +12,14 @@ import java.util.zip.ZipInputStream;
 @Service
 public class FileUploadService {
 
-    public Map<String, String> readZip(MultipartFile file) {
+    XmlService xmlService;
+
+    @Autowired
+    public FileUploadService(XmlService xmlService) {
+        this.xmlService = xmlService;
+    }
+
+    public void readZip(MultipartFile file) {
 
         Map<String, String> xmlFiles = new HashMap<>();
 
@@ -30,6 +38,6 @@ public class FileUploadService {
             e.printStackTrace();
         }
 
-        return xmlFiles;
+        xmlService.storageXml(xmlFiles);
     }
 }
