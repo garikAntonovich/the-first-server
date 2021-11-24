@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement(name = "Inf_Pay_Doc")
-public class RootTag {
+public class RootTagS {
 
     private String guidDoc;
     private String date;

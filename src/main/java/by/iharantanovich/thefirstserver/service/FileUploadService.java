@@ -12,11 +12,11 @@ import java.util.zip.ZipInputStream;
 @Service
 public class FileUploadService {
 
-    XmlService xmlService;
+    ParseXmlService parseXmlService;
 
     @Autowired
-    public FileUploadService(XmlService xmlService) {
-        this.xmlService = xmlService;
+    public FileUploadService(ParseXmlService xmlService) {
+        this.parseXmlService = xmlService;
     }
 
     public void readZip(MultipartFile file) {
@@ -38,6 +38,6 @@ public class FileUploadService {
             e.printStackTrace();
         }
 
-        xmlService.storageXml(xmlFiles);
+        parseXmlService.storageXml(xmlFiles);
     }
 }
