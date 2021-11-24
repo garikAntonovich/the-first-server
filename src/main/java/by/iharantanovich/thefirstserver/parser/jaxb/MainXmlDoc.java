@@ -3,7 +3,7 @@ package by.iharantanovich.thefirstserver.parser.jaxb;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType(propOrder = {"lineNum", "docNum", "docDate", "docGUID", "operType", "bicCorr", "amountIn", "amountOut", "sendAcc", "recipAcc", "purpPay"}, name = "MainXmlDoc")
+@XmlType(name = "Doc")
 public class MainXmlDoc {
 
     private Integer lineNum;
@@ -119,7 +119,7 @@ public class MainXmlDoc {
 
     @Override
     public String toString() {
-        return "MainXmlDoc{" +
+        return "Doc{" +
                 "lineNum=" + lineNum +
                 ", docNum=" + docNum +
                 ", docDate=" + docDate +

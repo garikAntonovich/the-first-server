@@ -11,8 +11,8 @@ public class SupplementaryXmlRoot {
 
     private String guidDoc;
     private String date;
-    private SupplementaryXmlScrs scrs;
-    private SupplementaryXmlVidOtch vidOtch;
+    private SupplementaryXmlAttribute scrs;
+    private SupplementaryXmlAttribute vidOtch;
     private Integer kolDoc;
     private List<SupplementaryXmlDoc> doc = new ArrayList<>();
 
@@ -35,20 +35,20 @@ public class SupplementaryXmlRoot {
     }
 
     @XmlElement(name = "Scrc")
-    public SupplementaryXmlScrs getScrs() {
+    public SupplementaryXmlAttribute getScrs() {
         return scrs;
     }
 
-    public void setScrs(SupplementaryXmlScrs scrs) {
+    public void setScrs(SupplementaryXmlAttribute scrs) {
         this.scrs = scrs;
     }
 
     @XmlElement(name = "Vid_Otch")
-    public SupplementaryXmlVidOtch getVidOtch() {
+    public SupplementaryXmlAttribute getVidOtch() {
         return vidOtch;
     }
 
-    public void setVidOtch(SupplementaryXmlVidOtch vidOtch) {
+    public void setVidOtch(SupplementaryXmlAttribute vidOtch) {
         this.vidOtch = vidOtch;
     }
 

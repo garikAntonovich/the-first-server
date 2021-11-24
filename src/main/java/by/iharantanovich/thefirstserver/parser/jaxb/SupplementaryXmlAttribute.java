@@ -5,14 +5,14 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class SupplementaryXmlVidOtch {
+public class SupplementaryXmlAttribute {
 
     @XmlAttribute
     private String value;
 
     @Override
     public String toString() {
-        return "SupplementaryXmlVidOtch{" +
+        return "SupplementaryXmlAttribute{" +
                 "value='" + value + '\'' +
                 '}';
     }
