@@ -1,10 +1,8 @@
-package by.iharantanovich.thefirstserver.parser.jaxb;
+package by.iharantanovich.thefirstserver.parser.jaxb.mainXmlFile;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
 
-@XmlType(name = "Doc")
-public class MainXmlDoc {
+public class DocTag {
 
     private Integer lineNum;
     private Integer docNum;

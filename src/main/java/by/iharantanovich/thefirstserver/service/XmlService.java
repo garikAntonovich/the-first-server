@@ -1,7 +1,6 @@
 package by.iharantanovich.thefirstserver.service;
 
-import by.iharantanovich.thefirstserver.parser.jaxb.MainXmlRoot;
-import by.iharantanovich.thefirstserver.parser.jaxb.SupplementaryXmlRoot;
+import by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile.RootTag;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.JAXBContext;
@@ -18,18 +17,18 @@ public class XmlService {
         JAXBContext jaxbContext;
 
         try {
-            jaxbContext = JAXBContext.newInstance(MainXmlRoot.class);
+            jaxbContext = JAXBContext.newInstance(by.iharantanovich.thefirstserver.parser.jaxb.mainXmlFile.RootTag.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            MainXmlRoot mainXmlRoot = (MainXmlRoot) jaxbUnmarshaller.unmarshal(new StringReader(stringMap.get("Report.xml")));
+            by.iharantanovich.thefirstserver.parser.jaxb.mainXmlFile.RootTag mainXmlRootTag = (by.iharantanovich.thefirstserver.parser.jaxb.mainXmlFile.RootTag) jaxbUnmarshaller.unmarshal(new StringReader(stringMap.get("Report.xml")));
 
-            System.out.println(mainXmlRoot);
+            System.out.println(mainXmlRootTag);
 
 
-            jaxbContext = JAXBContext.newInstance(SupplementaryXmlRoot.class);
+            jaxbContext = JAXBContext.newInstance(RootTag.class);
             jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            SupplementaryXmlRoot supplementaryXmlRoot = (SupplementaryXmlRoot) jaxbUnmarshaller.unmarshal(new StringReader(stringMap.get("PayDocs.xml")));
+            RootTag supplementaryXmlRootTag = (RootTag) jaxbUnmarshaller.unmarshal(new StringReader(stringMap.get("PayDocs.xml")));
 
-            System.out.println(supplementaryXmlRoot);
+            System.out.println(supplementaryXmlRootTag);
 
 
         } catch (JAXBException e) {

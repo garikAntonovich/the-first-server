@@ -1,8 +1,8 @@
-package by.iharantanovich.thefirstserver.parser.jaxb;
+package by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile;
 
 import javax.xml.bind.annotation.XmlElement;
 
-public class SupplementaryXmlDoc {
+public class DocTag {
 
     private Integer num;
     private String date;
@@ -10,14 +10,14 @@ public class SupplementaryXmlDoc {
     private Integer nomPp;
     private String datePp;
     private Double sumPp;
-    private SupplementaryXmlAttribute vidPay;
+    private TagAttribute vidPay;
     private String datePpIn;
     private String datePpOut;
     private String vidOper;
-    private SupplementaryXmlInfPayAndRcp infPay;
-    private SupplementaryXmlBankPayAndRcp bankPay;
-    private SupplementaryXmlInfPayAndRcp infRcp;
-    private SupplementaryXmlBankPayAndRcp bankRcp;
+    private InfPayAndRcpTag infPay;
+    private BankPayAndRcpTag bankPay;
+    private InfPayAndRcpTag infRcp;
+    private BankPayAndRcpTag bankRcp;
     private Integer purposeId;
     private Integer orderPay;
     private Integer uin;
@@ -81,11 +81,11 @@ public class SupplementaryXmlDoc {
     }
 
     @XmlElement(name = "Vid_Pay")
-    public SupplementaryXmlAttribute getVidPay() {
+    public TagAttribute getVidPay() {
         return vidPay;
     }
 
-    public void setVidPay(SupplementaryXmlAttribute vidPay) {
+    public void setVidPay(TagAttribute vidPay) {
         this.vidPay = vidPay;
     }
 
@@ -117,38 +117,38 @@ public class SupplementaryXmlDoc {
     }
 
     @XmlElement(name = "Inf_PAY")
-    public SupplementaryXmlInfPayAndRcp getInfPay() {
+    public InfPayAndRcpTag getInfPay() {
         return infPay;
     }
 
-    public void setInfPay(SupplementaryXmlInfPayAndRcp infPay) {
+    public void setInfPay(InfPayAndRcpTag infPay) {
         this.infPay = infPay;
     }
 
     @XmlElement(name = "Bank_PAY")
-    public SupplementaryXmlBankPayAndRcp getBankPay() {
+    public BankPayAndRcpTag getBankPay() {
         return bankPay;
     }
 
-    public void setBankPay(SupplementaryXmlBankPayAndRcp bankPay) {
+    public void setBankPay(BankPayAndRcpTag bankPay) {
         this.bankPay = bankPay;
     }
 
     @XmlElement(name = "Inf_RCP")
-    public SupplementaryXmlInfPayAndRcp getInfRcp() {
+    public InfPayAndRcpTag getInfRcp() {
         return infRcp;
     }
 
-    public void setInfRcp(SupplementaryXmlInfPayAndRcp infRcp) {
+    public void setInfRcp(InfPayAndRcpTag infRcp) {
         this.infRcp = infRcp;
     }
 
     @XmlElement(name = "Bank_RCP")
-    public SupplementaryXmlBankPayAndRcp getBankRcp() {
+    public BankPayAndRcpTag getBankRcp() {
         return bankRcp;
     }
 
-    public void setBankRcp(SupplementaryXmlBankPayAndRcp bankRcp) {
+    public void setBankRcp(BankPayAndRcpTag bankRcp) {
         this.bankRcp = bankRcp;
     }
 

@@ -1,8 +1,8 @@
-package by.iharantanovich.thefirstserver.parser.jaxb;
+package by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile;
 
 import javax.xml.bind.annotation.XmlElement;
 
-public class SupplementaryXmlInfPayAndRcp {
+public class InfPayAndRcpTag {
 
     private String innPay;
     private String kppPay;
@@ -37,7 +37,7 @@ public class SupplementaryXmlInfPayAndRcp {
 
     @Override
     public String toString() {
-        return "SupplementaryXmlInfPayAndRcp{" +
+        return "InfPayAndRcpTag{" +
                 "innPay='" + innPay + '\'' +
                 ", kppPay='" + kppPay + '\'' +
                 ", cNamePay='" + cNamePay + '\'' +

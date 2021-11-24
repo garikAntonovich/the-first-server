@@ -1,8 +1,8 @@
-package by.iharantanovich.thefirstserver.parser.jaxb;
+package by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile;
 
 import javax.xml.bind.annotation.XmlElement;
 
-public class SupplementaryXmlBankPayAndRcp {
+public class BankPayAndRcpTag {
 
     private String bsPay;
     private String bicPay;
@@ -37,7 +37,7 @@ public class SupplementaryXmlBankPayAndRcp {
 
     @Override
     public String toString() {
-        return "SupplementaryXmlBankPayAndRcp{" +
+        return "BankPayAndRcpTag{" +
                 "bsPay='" + bsPay + '\'' +
                 ", bicPay='" + bicPay + '\'' +
                 ", bsKsPay='" + bsKsPay + '\'' +

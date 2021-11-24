@@ -1,4 +1,4 @@
-package by.iharantanovich.thefirstserver.parser.jaxb;
+package by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement(name = "Inf_Pay_Doc")
-public class SupplementaryXmlRoot {
+public class RootTag {
 
     private String guidDoc;
     private String date;
-    private SupplementaryXmlAttribute scrs;
-    private SupplementaryXmlAttribute vidOtch;
+    private TagAttribute scrs;
+    private TagAttribute vidOtch;
     private Integer kolDoc;
-    private List<SupplementaryXmlDoc> doc = new ArrayList<>();
+    private List<DocTag> doc = new ArrayList<>();
 
     @XmlElement(name = "GUID_Doc")
     public String getGuidDoc() {
@@ -35,20 +35,20 @@ public class SupplementaryXmlRoot {
     }
 
     @XmlElement(name = "Scrc")
-    public SupplementaryXmlAttribute getScrs() {
+    public TagAttribute getScrs() {
         return scrs;
     }
 
-    public void setScrs(SupplementaryXmlAttribute scrs) {
+    public void setScrs(TagAttribute scrs) {
         this.scrs = scrs;
     }
 
     @XmlElement(name = "Vid_Otch")
-    public SupplementaryXmlAttribute getVidOtch() {
+    public TagAttribute getVidOtch() {
         return vidOtch;
     }
 
-    public void setVidOtch(SupplementaryXmlAttribute vidOtch) {
+    public void setVidOtch(TagAttribute vidOtch) {
         this.vidOtch = vidOtch;
     }
 
@@ -63,17 +63,17 @@ public class SupplementaryXmlRoot {
 
     @XmlElementWrapper(name = "Docs")
     @XmlElement(name = "Doc")
-    public List<SupplementaryXmlDoc> getDoc() {
+    public List<DocTag> getDoc() {
         return doc;
     }
 
-    public void setDoc(List<SupplementaryXmlDoc> doc) {
+    public void setDoc(List<DocTag> doc) {
         this.doc = doc;
     }
 
     @Override
     public String toString() {
-        return "SupplementaryXmlRoot{" +
+        return "RootTag{" +
                 "guidDoc='" + guidDoc + '\'' +
                 ", date='" + date + '\'' +
                 ", scrs=" + scrs +

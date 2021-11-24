@@ -1,4 +1,4 @@
-package by.iharantanovich.thefirstserver.parser.jaxb;
+package by.iharantanovich.thefirstserver.parser.jaxb.mainXmlFile;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement(name = "SKP_REPORT_KS")
-public class MainXmlRoot {
+public class RootTag {
 
     private Integer docNum;
     private String docDate;
@@ -15,7 +15,7 @@ public class MainXmlRoot {
     private String accNum;
     private String reportTypeFlag;
     private Integer codeOkeu;
-    private List<MainXmlDoc> doc = new ArrayList<>();
+    private List<DocTag> doc = new ArrayList<>();
     private String executorSFP;
     private String executorPost;
 
@@ -75,11 +75,11 @@ public class MainXmlRoot {
 
     @XmlElementWrapper(name = "Docs")
     @XmlElement(name = "Doc")
-    public List<MainXmlDoc> getDoc() {
+    public List<DocTag> getDoc() {
         return doc;
     }
 
-    public void setDoc(ArrayList<MainXmlDoc> doc) {
+    public void setDoc(ArrayList<DocTag> doc) {
         this.doc = doc;
     }
 
@@ -103,7 +103,7 @@ public class MainXmlRoot {
 
     @Override
     public String toString() {
-        return "MainXmlRoot{" +
+        return "RootTag{" +
                 "docNum=" + docNum +
                 ", docDate='" + docDate + '\'' +
                 ", docDateOld='" + docDateOld + '\'' +
