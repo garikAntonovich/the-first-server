@@ -18,6 +18,7 @@ public class RootTag {
     private List<DocTag> doc = new ArrayList<>();
     private String executorSFP;
     private String executorPost;
+    private StmInfrmtnTfTag stmInfrmtnTf;
 
     @XmlElement(name = "DocNum")
     public Integer getDocNum() {
@@ -101,6 +102,15 @@ public class RootTag {
         this.executorPost = executorPost;
     }
 
+    @XmlElement(name = "StmInfrmtn_TF")
+    public StmInfrmtnTfTag getStmInfrmtnTf() {
+        return stmInfrmtnTf;
+    }
+
+    public void setStmInfrmtnTf(StmInfrmtnTfTag stmInfrmtnTf) {
+        this.stmInfrmtnTf = stmInfrmtnTf;
+    }
+
     @Override
     public String toString() {
         return "RootTag{" +
@@ -113,6 +123,7 @@ public class RootTag {
                 ", doc=" + doc +
                 ", executorSFP='" + executorSFP + '\'' +
                 ", executorPost='" + executorPost + '\'' +
+                ", stmInfrmtnTf=" + stmInfrmtnTf +
                 '}';
     }
 }
