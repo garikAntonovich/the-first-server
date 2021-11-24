@@ -75,7 +75,7 @@ public class MainXmlRoot {
     }
 
     @XmlElementWrapper(name = "Docs")
-    @XmlElement(name = "MainXmlDoc")
+    @XmlElement(name = "Doc")
     public List<MainXmlDoc> getDoc() {
         return doc;
     }
