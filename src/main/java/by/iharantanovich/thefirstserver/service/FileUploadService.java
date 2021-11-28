@@ -21,23 +21,29 @@ public class FileUploadService {
 
     public void readZip(MultipartFile file) {
 
-        Map<String, String> xmlFiles = new HashMap<>();
-
         try {
             ZipInputStream zis = new ZipInputStream(file.getInputStream());
             ZipEntry zipEntry;
+            Map<String, String> zipFiles = new HashMap<>();
 
             while ((zipEntry = zis.getNextEntry()) != null) {
-                byte[] bytes = zis.readNBytes((int) zipEntry.getSize());
-                xmlFiles.put(zipEntry.getName(), new String(bytes));
+                if (zipEntry.getName().endsWith(".xml")) {
+                    byte[] buffer = zis.readNBytes((int) zipEntry.getSize());
+                    zipFiles.put(zipEntry.getName(), new String(buffer));
+                } else {
+                    continue;
+                }
                 zis.closeEntry();
             }
             zis.close();
+            zipFilesStorage(zipFiles);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
-        parseXmlService.storageXml(xmlFiles);
+    public Map<String, String> zipFilesStorage(Map<String, String> zipFiles) {
+        return zipFiles;
     }
 }
