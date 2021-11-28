@@ -13,24 +13,25 @@ import java.util.Map;
 @Service
 public class ParseXmlService {
 
-    public void storageXml(Map<String, String> stringMap) {
-
-        JAXBContext jaxbContext;
+    public void parseXmlFiles(Map<String, String> stringMap) {
 
         try {
-            jaxbContext = JAXBContext.newInstance(RootTag.class);
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            RootTag mainXmlRootTag = (RootTag) jaxbUnmarshaller.unmarshal(new StringReader(stringMap.get("Report.xml")));
-
-            jaxbContext = JAXBContext.newInstance(RootTagS.class);
-            jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            RootTagS supplementaryXmlRootTag = (RootTagS) jaxbUnmarshaller.unmarshal(new StringReader(stringMap.get("PayDocs.xml")));
-
-            System.out.println(mainXmlRootTag);
-            System.out.println(supplementaryXmlRootTag);
+            for (Map.Entry<String, String> item : stringMap.entrySet()) {
+                if (item.getValue().endsWith("</SKP_REPORT_KS>")) {
+                    Unmarshaller jaxbUnmarshaller = JAXBContext.newInstance(RootTag.class).createUnmarshaller();
+                    RootTag mainXmlRootTag = (RootTag) jaxbUnmarshaller.unmarshal(new StringReader(stringMap.get(item.getKey())));
+                    System.out.println(mainXmlRootTag);
+                }
+                if (item.getValue().endsWith("</Inf_Pay_Doc>")) {
+                    Unmarshaller jaxbUnmarshaller = JAXBContext.newInstance(RootTagS.class).createUnmarshaller();
+                    RootTagS supplementaryXmlRootTag = (RootTagS) jaxbUnmarshaller.unmarshal(new StringReader(stringMap.get(item.getKey())));
+                    System.out.println(supplementaryXmlRootTag);
+                }
+            }
 
         } catch (JAXBException e) {
             e.printStackTrace();
         }
     }
+
 }
