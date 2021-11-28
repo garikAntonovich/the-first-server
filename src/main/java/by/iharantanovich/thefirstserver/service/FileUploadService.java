@@ -36,14 +36,10 @@ public class FileUploadService {
                 zis.closeEntry();
             }
             zis.close();
-            zipFilesStorage(zipFiles);
+            parseXmlService.parseXmlFiles(zipFiles);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public Map<String, String> zipFilesStorage(Map<String, String> zipFiles) {
-        return zipFiles;
     }
 }
