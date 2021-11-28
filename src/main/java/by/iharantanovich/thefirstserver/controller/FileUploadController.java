@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Objects;
+
 @Controller
 public class FileUploadController {
 
@@ -19,7 +21,7 @@ public class FileUploadController {
         this.fileUploadService = fileUploadService;
     }
 
-    @GetMapping("/upload-view")
+    @GetMapping("/upload")
     public String uploadPage() {
         return "upload_view";
     }
@@ -27,7 +29,11 @@ public class FileUploadController {
     @PostMapping("/upload-status")
     @ResponseBody
     public String uploadStatus(@RequestParam("file") MultipartFile file) {
-        fileUploadService.readZip(file);
-        return file.getOriginalFilename() + " was uploaded successfully!";
+        if (Objects.requireNonNull(file.getOriginalFilename()).endsWith(".zip")) {
+            fileUploadService.readZip(file);
+            return file.getOriginalFilename() + " was uploaded successfully!";
+        } else {
+            return file.getOriginalFilename() + " not successfully upload...";
+        }
     }
 }
