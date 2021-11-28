@@ -26,7 +26,7 @@ public class FileUploadController {
         return "upload_view";
     }
 
-    @PostMapping("/upload-status")
+    @PostMapping("/upload")
     @ResponseBody
     public String uploadStatus(@RequestParam("file") MultipartFile file) {
         if (Objects.requireNonNull(file.getOriginalFilename()).endsWith(".zip")) {
