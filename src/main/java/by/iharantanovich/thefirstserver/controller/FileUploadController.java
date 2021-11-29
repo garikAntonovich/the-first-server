@@ -4,10 +4,10 @@ import by.iharantanovich.thefirstserver.model.ZippedFile;
 import by.iharantanovich.thefirstserver.service.FileUploadServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -29,16 +29,19 @@ public class FileUploadController {
     }
 
     @PostMapping("/upload")
-    @ResponseBody
-    public String uploadStatus(@RequestParam("file") MultipartFile file) {
+    public String uploadStatus(@RequestParam("file") MultipartFile file, Model model) {
+
         if (Objects.requireNonNull(file.getOriginalFilename()).endsWith(".zip")) {
+
             List<ZippedFile> zippedFileList = fileUploadService.saveZippedFiles(file);
             fileUploadService.parseZippedFiles(zippedFileList);
             fileUploadService.extractingData();
 
-            return file.getOriginalFilename() + " was uploaded successfully!";
+            model.addAttribute("message", "Successfully uploaded file: " + file.getOriginalFilename());
         } else {
-            return file.getOriginalFilename() + " not successfully upload...";
+            System.out.println("This is not a zip file: " + file.getOriginalFilename());
+            model.addAttribute("fail", "This is not a zip file: " + file.getOriginalFilename());
         }
+        return "upload_status_view";
     }
 }
