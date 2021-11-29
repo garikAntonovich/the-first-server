@@ -1,7 +1,7 @@
 package by.iharantanovich.thefirstserver.model;
 
-import by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile.BankPayAndRcpTag;
-import by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile.InfPayAndRcpTag;
+import by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile.BankPayAndRcp;
+import by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile.InfPayAndRcp;
 
 public class ExtractedInformation {
 
@@ -10,10 +10,10 @@ public class ExtractedInformation {
     private String docGUIDEx;
     private String operTypeEx;
     private Double amountOutEx;
-    private InfPayAndRcpTag infPayEx;
-    private BankPayAndRcpTag bankPayEx;
-    private InfPayAndRcpTag infRcpEx;
-    private BankPayAndRcpTag bankRcpEx;
+    private InfPayAndRcp infPayEx;
+    private BankPayAndRcp bankPayEx;
+    private InfPayAndRcp infRcpEx;
+    private BankPayAndRcp bankRcpEx;
     private String purposeEx;
 
     public Integer getDocNumEx() {
@@ -56,35 +56,35 @@ public class ExtractedInformation {
         this.amountOutEx = amountOutEx;
     }
 
-    public InfPayAndRcpTag getInfPayEx() {
+    public InfPayAndRcp getInfPayEx() {
         return infPayEx;
     }
 
-    public void setInfPayEx(InfPayAndRcpTag infPayEx) {
+    public void setInfPayEx(InfPayAndRcp infPayEx) {
         this.infPayEx = infPayEx;
     }
 
-    public BankPayAndRcpTag getBankPayEx() {
+    public BankPayAndRcp getBankPayEx() {
         return bankPayEx;
     }
 
-    public void setBankPayEx(BankPayAndRcpTag bankPayEx) {
+    public void setBankPayEx(BankPayAndRcp bankPayEx) {
         this.bankPayEx = bankPayEx;
     }
 
-    public InfPayAndRcpTag getInfRcpEx() {
+    public InfPayAndRcp getInfRcpEx() {
         return infRcpEx;
     }
 
-    public void setInfRcpEx(InfPayAndRcpTag infRcpEx) {
+    public void setInfRcpEx(InfPayAndRcp infRcpEx) {
         this.infRcpEx = infRcpEx;
     }
 
-    public BankPayAndRcpTag getBankRcpEx() {
+    public BankPayAndRcp getBankRcpEx() {
         return bankRcpEx;
     }
 
-    public void setBankRcpEx(BankPayAndRcpTag bankRcpEx) {
+    public void setBankRcpEx(BankPayAndRcp bankRcpEx) {
         this.bankRcpEx = bankRcpEx;
     }
 

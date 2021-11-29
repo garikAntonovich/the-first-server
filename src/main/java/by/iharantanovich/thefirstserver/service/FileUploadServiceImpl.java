@@ -1,8 +1,8 @@
 package by.iharantanovich.thefirstserver.service;
 
 import by.iharantanovich.thefirstserver.model.ZippedFile;
-import by.iharantanovich.thefirstserver.parser.jaxb.mainXmlFile.RootTag;
-import by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile.RootTagS;
+import by.iharantanovich.thefirstserver.parser.jaxb.mainXmlFile.RootMain;
+import by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile.RootSupplementary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -60,7 +60,7 @@ public class FileUploadServiceImpl implements FileUploadService {
             for (ZippedFile zippedFile : zippedFiles) {
 
                 if (zippedFile.getData().endsWith(MAIN_XML)) {
-                    RootTag mainXml = (RootTag) JAXBContext.newInstance(RootTag.class).createUnmarshaller().
+                    RootMain mainXml = (RootMain) JAXBContext.newInstance(RootMain.class).createUnmarshaller().
                             unmarshal(new StringReader(zippedFile.getData()));
                     if (!(mainXml.getReportTypeFlag().equals("Итоговая"))) {
                         break;
@@ -68,7 +68,7 @@ public class FileUploadServiceImpl implements FileUploadService {
                         System.out.println(mainXml);
                     }
                 } else if (zippedFile.getData().endsWith(SUPPLEMENTARY_XML)) {
-                    RootTagS suppXml = (RootTagS) JAXBContext.newInstance(RootTagS.class).createUnmarshaller().
+                    RootSupplementary suppXml = (RootSupplementary) JAXBContext.newInstance(RootSupplementary.class).createUnmarshaller().
                             unmarshal(new StringReader(zippedFile.getData()));
                     System.out.println(suppXml);
                 }

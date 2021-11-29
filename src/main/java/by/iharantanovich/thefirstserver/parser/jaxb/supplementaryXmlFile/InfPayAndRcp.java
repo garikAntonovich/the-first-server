@@ -2,7 +2,7 @@ package by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile;
 
 import javax.xml.bind.annotation.XmlElement;
 
-public class InfPayAndRcpTag {
+public class InfPayAndRcp {
 
     private String innPay;
     private String kppPay;
@@ -37,7 +37,7 @@ public class InfPayAndRcpTag {
 
     @Override
     public String toString() {
-        return "InfPayAndRcpTag{" +
+        return "InfPayAndRcp{" +
                 "innPay='" + innPay + '\'' +
                 ", kppPay='" + kppPay + '\'' +
                 ", cNamePay='" + cNamePay + '\'' +

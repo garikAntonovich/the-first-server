@@ -2,7 +2,7 @@ package by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile;
 
 import javax.xml.bind.annotation.XmlElement;
 
-public class DocTag {
+public class Doc {
 
     private Integer num;
     private String date;
@@ -14,10 +14,10 @@ public class DocTag {
     private String datePpIn;
     private String datePpOut;
     private String vidOper;
-    private InfPayAndRcpTag infPay;
-    private BankPayAndRcpTag bankPay;
-    private InfPayAndRcpTag infRcp;
-    private BankPayAndRcpTag bankRcp;
+    private InfPayAndRcp infPay;
+    private BankPayAndRcp bankPay;
+    private InfPayAndRcp infRcp;
+    private BankPayAndRcp bankRcp;
     private Integer purposeId;
     private Integer orderPay;
     private Integer uin;
@@ -117,38 +117,38 @@ public class DocTag {
     }
 
     @XmlElement(name = "Inf_PAY")
-    public InfPayAndRcpTag getInfPay() {
+    public InfPayAndRcp getInfPay() {
         return infPay;
     }
 
-    public void setInfPay(InfPayAndRcpTag infPay) {
+    public void setInfPay(InfPayAndRcp infPay) {
         this.infPay = infPay;
     }
 
     @XmlElement(name = "Bank_PAY")
-    public BankPayAndRcpTag getBankPay() {
+    public BankPayAndRcp getBankPay() {
         return bankPay;
     }
 
-    public void setBankPay(BankPayAndRcpTag bankPay) {
+    public void setBankPay(BankPayAndRcp bankPay) {
         this.bankPay = bankPay;
     }
 
     @XmlElement(name = "Inf_RCP")
-    public InfPayAndRcpTag getInfRcp() {
+    public InfPayAndRcp getInfRcp() {
         return infRcp;
     }
 
-    public void setInfRcp(InfPayAndRcpTag infRcp) {
+    public void setInfRcp(InfPayAndRcp infRcp) {
         this.infRcp = infRcp;
     }
 
     @XmlElement(name = "Bank_RCP")
-    public BankPayAndRcpTag getBankRcp() {
+    public BankPayAndRcp getBankRcp() {
         return bankRcp;
     }
 
-    public void setBankRcp(BankPayAndRcpTag bankRcp) {
+    public void setBankRcp(BankPayAndRcp bankRcp) {
         this.bankRcp = bankRcp;
     }
 

@@ -2,7 +2,7 @@ package by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile;
 
 import javax.xml.bind.annotation.XmlElement;
 
-public class BankPayAndRcpTag {
+public class BankPayAndRcp {
 
     private String bsPay;
     private String bicPay;
@@ -37,7 +37,7 @@ public class BankPayAndRcpTag {
 
     @Override
     public String toString() {
-        return "BankPayAndRcpTag{" +
+        return "BankPayAndRcp{" +
                 "bsPay='" + bsPay + '\'' +
                 ", bicPay='" + bicPay + '\'' +
                 ", bsKsPay='" + bsKsPay + '\'' +

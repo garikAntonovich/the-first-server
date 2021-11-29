@@ -2,7 +2,7 @@ package by.iharantanovich.thefirstserver.parser.jaxb.mainXmlFile;
 
 import javax.xml.bind.annotation.XmlElement;
 
-public class DocTag {
+public class Doc {
 
     private Integer lineNum;
     private Integer docNum;

@@ -2,7 +2,7 @@ package by.iharantanovich.thefirstserver.parser.jaxb.mainXmlFile;
 
 import javax.xml.bind.annotation.XmlElement;
 
-public class StmInfrmtnTfTag {
+public class StmInfrmtnTf {
 
     private String guid;
 
@@ -17,7 +17,7 @@ public class StmInfrmtnTfTag {
 
     @Override
     public String toString() {
-        return "StmInfrmtnTfTag{" +
+        return "StmInfrmtnTf{" +
                 "guid='" + guid + '\'' +
                 '}';
     }

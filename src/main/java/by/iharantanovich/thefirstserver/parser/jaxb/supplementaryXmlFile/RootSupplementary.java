@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement(name = "Inf_Pay_Doc")
-public class RootTagS {
+public class RootSupplementary {
 
     private String guidDoc;
     private String date;
     private TagAttribute scrs;
     private TagAttribute vidOtch;
     private Integer kolDoc;
-    private List<DocTag> doc = new ArrayList<>();
+    private List<Doc> doc = new ArrayList<>();
 
     @XmlElement(name = "GUID_Doc")
     public String getGuidDoc() {
@@ -63,17 +63,17 @@ public class RootTagS {
 
     @XmlElementWrapper(name = "Docs")
     @XmlElement(name = "Doc")
-    public List<DocTag> getDoc() {
+    public List<Doc> getDoc() {
         return doc;
     }
 
-    public void setDoc(List<DocTag> doc) {
+    public void setDoc(List<Doc> doc) {
         this.doc = doc;
     }
 
     @Override
     public String toString() {
-        return "RootTag{" +
+        return "SupplementaryXmlRoot{" +
                 "guidDoc='" + guidDoc + '\'' +
                 ", date='" + date + '\'' +
                 ", scrs=" + scrs +

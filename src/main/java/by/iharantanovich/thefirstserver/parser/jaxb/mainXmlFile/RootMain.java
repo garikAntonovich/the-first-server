@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement(name = "SKP_REPORT_KS")
-public class RootTag {
+public class RootMain {
 
     private Integer docNum;
     private String docDate;
@@ -15,10 +15,10 @@ public class RootTag {
     private String accNum;
     private String reportTypeFlag;
     private Integer codeOkeu;
-    private List<DocTag> doc = new ArrayList<>();
+    private List<Doc> doc = new ArrayList<>();
     private String executorSFP;
     private String executorPost;
-    private StmInfrmtnTfTag stmInfrmtnTf;
+    private StmInfrmtnTf stmInfrmtnTf;
 
     @XmlElement(name = "DocNum")
     public Integer getDocNum() {
@@ -76,11 +76,11 @@ public class RootTag {
 
     @XmlElementWrapper(name = "Docs")
     @XmlElement(name = "Doc")
-    public List<DocTag> getDoc() {
+    public List<Doc> getDoc() {
         return doc;
     }
 
-    public void setDoc(ArrayList<DocTag> doc) {
+    public void setDoc(ArrayList<Doc> doc) {
         this.doc = doc;
     }
 
@@ -103,17 +103,17 @@ public class RootTag {
     }
 
     @XmlElement(name = "StmInfrmtn_TF")
-    public StmInfrmtnTfTag getStmInfrmtnTf() {
+    public StmInfrmtnTf getStmInfrmtnTf() {
         return stmInfrmtnTf;
     }
 
-    public void setStmInfrmtnTf(StmInfrmtnTfTag stmInfrmtnTf) {
+    public void setStmInfrmtnTf(StmInfrmtnTf stmInfrmtnTf) {
         this.stmInfrmtnTf = stmInfrmtnTf;
     }
 
     @Override
     public String toString() {
-        return "RootTag{" +
+        return "MainXmlRoot{" +
                 "docNum=" + docNum +
                 ", docDate='" + docDate + '\'' +
                 ", docDateOld='" + docDateOld + '\'' +
