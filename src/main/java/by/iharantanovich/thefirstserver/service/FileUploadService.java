@@ -1,45 +1,17 @@
 package by.iharantanovich.thefirstserver.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import by.iharantanovich.thefirstserver.model.ZippedFile;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
-@Service
-public class FileUploadService {
+public interface FileUploadService {
 
-    ParseXmlService parseXmlService;
+    List<ZippedFile> saveZippedFiles(MultipartFile file);
 
-    @Autowired
-    public FileUploadService(ParseXmlService xmlService) {
-        this.parseXmlService = xmlService;
-    }
+    Map<String, String> getZippedFiles(List<ZippedFile> zippedFileList);
 
-    public void readZip(MultipartFile file) {
+    void parseZippedFiles(Map<String, String> zippedFilesMap);
 
-        try {
-            ZipInputStream zis = new ZipInputStream(file.getInputStream());
-            ZipEntry zipEntry;
-            Map<String, String> zipFiles = new HashMap<>();
-
-            while ((zipEntry = zis.getNextEntry()) != null) {
-                if (zipEntry.getName().endsWith(".xml")) {
-                    byte[] buffer = zis.readNBytes((int) zipEntry.getSize());
-                    zipFiles.put(zipEntry.getName(), new String(buffer));
-                } else {
-                    continue;
-                }
-                zis.closeEntry();
-            }
-            zis.close();
-            parseXmlService.parseXmlFiles(zipFiles);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
