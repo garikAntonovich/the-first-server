@@ -11,9 +11,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -55,35 +53,26 @@ public class FileUploadServiceImpl implements FileUploadService {
     }
 
     @Override
-    public Map<String, String> getZippedFiles(List<ZippedFile> zippedFileList) {
-
-        Map<String, String> zippedFileMap = new HashMap<>();
-
-        for (ZippedFile zippedFile : zippedFileList) {
-            zippedFileMap.put(zippedFile.getFileName(), zippedFile.getData());
-        }
-
-        return zippedFileMap;
-    }
-
-    @Override
-    public void parseZippedFiles(Map<String, String> zippedFilesMap) {
+    public void parseZippedFiles(List<ZippedFile> zippedFiles) {
 
         try {
 
-            for (Map.Entry<String, String> item : zippedFilesMap.entrySet()) {
-                if (item.getValue().endsWith(MAIN_XML)) {
+            for (ZippedFile zippedFile : zippedFiles) {
+
+                if (zippedFile.getData().endsWith(MAIN_XML)) {
                     RootTag mainXml = (RootTag) JAXBContext.newInstance(RootTag.class).createUnmarshaller().
-                            unmarshal(new StringReader(zippedFilesMap.get(item.getKey())));
-                    System.out.println(mainXml);
-                }
-                if (item.getValue().endsWith(SUPPLEMENTARY_XML)) {
-                    RootTagS supplementaryXml = (RootTagS) JAXBContext.newInstance(RootTagS.class).createUnmarshaller().
-                            unmarshal(new StringReader(zippedFilesMap.get(item.getKey())));
-                    System.out.println(supplementaryXml);
+                            unmarshal(new StringReader(zippedFile.getData()));
+                    if (!(mainXml.getReportTypeFlag().equals("Итоговая"))) {
+                        break;
+                    } else {
+                        System.out.println(mainXml);
+                    }
+                } else if (zippedFile.getData().endsWith(SUPPLEMENTARY_XML)) {
+                    RootTagS suppXml = (RootTagS) JAXBContext.newInstance(RootTagS.class).createUnmarshaller().
+                            unmarshal(new StringReader(zippedFile.getData()));
+                    System.out.println(suppXml);
                 }
             }
-
         } catch (JAXBException e) {
             e.printStackTrace();
         }

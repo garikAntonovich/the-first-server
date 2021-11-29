@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @Controller
@@ -34,8 +33,7 @@ public class FileUploadController {
     public String uploadStatus(@RequestParam("file") MultipartFile file) {
         if (Objects.requireNonNull(file.getOriginalFilename()).endsWith(".zip")) {
             List<ZippedFile> zippedFileList = fileUploadService.saveZippedFiles(file);
-            Map<String, String> zippedFiles = fileUploadService.getZippedFiles(zippedFileList);
-            fileUploadService.parseZippedFiles(zippedFiles);
+            fileUploadService.parseZippedFiles(zippedFileList);
 
             return file.getOriginalFilename() + " was uploaded successfully!";
         } else {
