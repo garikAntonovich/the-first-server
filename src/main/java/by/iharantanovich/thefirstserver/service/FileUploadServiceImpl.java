@@ -9,7 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.HashMap;
@@ -69,17 +68,19 @@ public class FileUploadServiceImpl implements FileUploadService {
 
     @Override
     public void parseZippedFiles(Map<String, String> zippedFilesMap) {
+
         try {
+
             for (Map.Entry<String, String> item : zippedFilesMap.entrySet()) {
                 if (item.getValue().endsWith(MAIN_XML)) {
-                    Unmarshaller jaxbUnmarshaller = JAXBContext.newInstance(RootTag.class).createUnmarshaller();
-                    RootTag mainXmlRootTag = (RootTag) jaxbUnmarshaller.unmarshal(new StringReader(zippedFilesMap.get(item.getKey())));
-                    System.out.println(mainXmlRootTag);
+                    RootTag mainXml = (RootTag) JAXBContext.newInstance(RootTag.class).createUnmarshaller().
+                            unmarshal(new StringReader(zippedFilesMap.get(item.getKey())));
+                    System.out.println(mainXml);
                 }
                 if (item.getValue().endsWith(SUPPLEMENTARY_XML)) {
-                    Unmarshaller jaxbUnmarshaller = JAXBContext.newInstance(RootTagS.class).createUnmarshaller();
-                    RootTagS supplementaryXmlRootTag = (RootTagS) jaxbUnmarshaller.unmarshal(new StringReader(zippedFilesMap.get(item.getKey())));
-                    System.out.println(supplementaryXmlRootTag);
+                    RootTagS supplementaryXml = (RootTagS) JAXBContext.newInstance(RootTagS.class).createUnmarshaller().
+                            unmarshal(new StringReader(zippedFilesMap.get(item.getKey())));
+                    System.out.println(supplementaryXml);
                 }
             }
 
