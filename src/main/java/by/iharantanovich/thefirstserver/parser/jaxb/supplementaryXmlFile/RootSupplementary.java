@@ -1,5 +1,7 @@
 package by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile;
 
+import org.springframework.stereotype.Component;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -7,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement(name = "Inf_Pay_Doc")
+@Component
 public class RootSupplementary {
 
     private String guidDoc;

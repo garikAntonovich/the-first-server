@@ -34,6 +34,7 @@ public class FileUploadController {
         if (Objects.requireNonNull(file.getOriginalFilename()).endsWith(".zip")) {
             List<ZippedFile> zippedFileList = fileUploadService.saveZippedFiles(file);
             fileUploadService.parseZippedFiles(zippedFileList);
+            fileUploadService.extractingData();
 
             return file.getOriginalFilename() + " was uploaded successfully!";
         } else {

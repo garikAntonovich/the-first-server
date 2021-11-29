@@ -2,7 +2,9 @@ package by.iharantanovich.thefirstserver.model;
 
 import by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile.BankPayAndRcp;
 import by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile.InfPayAndRcp;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ExtractedInformation {
 
     private Integer docNumEx;
