@@ -21,6 +21,8 @@ import java.util.zip.ZipInputStream;
 @Service
 public class FileUploadServiceImpl implements FileUploadService {
 
+    private static final String MAIN_XML = "</SKP_REPORT_KS>";
+    private static final String SUPPLEMENTARY_XML = "</Inf_Pay_Doc>";
     protected List<ZippedFile> zippedFiles;
 
     @Autowired
@@ -69,12 +71,12 @@ public class FileUploadServiceImpl implements FileUploadService {
     public void parseZippedFiles(Map<String, String> zippedFilesMap) {
         try {
             for (Map.Entry<String, String> item : zippedFilesMap.entrySet()) {
-                if (item.getValue().endsWith("</SKP_REPORT_KS>")) {
+                if (item.getValue().endsWith(MAIN_XML)) {
                     Unmarshaller jaxbUnmarshaller = JAXBContext.newInstance(RootTag.class).createUnmarshaller();
                     RootTag mainXmlRootTag = (RootTag) jaxbUnmarshaller.unmarshal(new StringReader(zippedFilesMap.get(item.getKey())));
                     System.out.println(mainXmlRootTag);
                 }
-                if (item.getValue().endsWith("</Inf_Pay_Doc>")) {
+                if (item.getValue().endsWith(SUPPLEMENTARY_XML)) {
                     Unmarshaller jaxbUnmarshaller = JAXBContext.newInstance(RootTagS.class).createUnmarshaller();
                     RootTagS supplementaryXmlRootTag = (RootTagS) jaxbUnmarshaller.unmarshal(new StringReader(zippedFilesMap.get(item.getKey())));
                     System.out.println(supplementaryXmlRootTag);
