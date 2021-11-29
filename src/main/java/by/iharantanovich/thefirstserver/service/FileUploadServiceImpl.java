@@ -59,8 +59,7 @@ public class FileUploadServiceImpl implements FileUploadService {
         Map<String, String> zippedFileMap = new HashMap<>();
 
         for (ZippedFile zippedFile : zippedFileList) {
-            if (zippedFile != null)
-                zippedFileMap.put(zippedFile.getFileName(), zippedFile.getData());
+            zippedFileMap.put(zippedFile.getFileName(), zippedFile.getData());
         }
 
         return zippedFileMap;
