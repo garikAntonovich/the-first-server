@@ -32,16 +32,14 @@ public class FileUploadController {
     public String uploadStatus(@RequestParam("file") MultipartFile file, Model model) {
 
         if (Objects.requireNonNull(file.getOriginalFilename()).endsWith(".zip")) {
-
             List<ZippedFile> zippedFileList = fileUploadService.saveZippedFiles(file);
             fileUploadService.parseZippedFiles(zippedFileList);
             fileUploadService.extractingData();
-
             model.addAttribute("message", "Successfully uploaded file: " + file.getOriginalFilename());
         } else {
-            System.out.println("This is not a zip file: " + file.getOriginalFilename());
             model.addAttribute("fail", "This is not a zip file: " + file.getOriginalFilename());
         }
+
         return "upload_status_view";
     }
 }
