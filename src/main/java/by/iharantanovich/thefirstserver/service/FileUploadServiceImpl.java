@@ -77,9 +77,8 @@ public class FileUploadServiceImpl implements FileUploadService {
                         rootMain = mainXml;
                     }
                 } else if (zippedFile.getData().endsWith(SUPPLEMENTARY_XML)) {
-                    RootSupplementary suppXml = (RootSupplementary) JAXBContext.newInstance(RootSupplementary.class).createUnmarshaller().
+                    rootSupplementary = (RootSupplementary) JAXBContext.newInstance(RootSupplementary.class).createUnmarshaller().
                             unmarshal(new StringReader(zippedFile.getData()));
-                    rootSupplementary = suppXml;
                 }
             }
 
@@ -108,8 +107,6 @@ public class FileUploadServiceImpl implements FileUploadService {
                 extractedDataList.add(extractedData);
             }
         }
-
-        System.out.println(extractedDataList);
 
         return extractedDataList;
     }

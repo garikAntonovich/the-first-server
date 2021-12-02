@@ -1,6 +1,7 @@
 package by.iharantanovich.thefirstserver.controller;
 
 import by.iharantanovich.thefirstserver.model.ZippedFile;
+import by.iharantanovich.thefirstserver.service.ApiServiceImpl;
 import by.iharantanovich.thefirstserver.service.FileUploadServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,10 +18,12 @@ import java.util.Objects;
 public class FileUploadController {
 
     protected FileUploadServiceImpl fileUploadService;
+    protected ApiServiceImpl apiService;
 
     @Autowired
-    public FileUploadController(FileUploadServiceImpl fileUploadService) {
+    public FileUploadController(FileUploadServiceImpl fileUploadService, ApiServiceImpl apiService) {
         this.fileUploadService = fileUploadService;
+        this.apiService = apiService;
     }
 
     @GetMapping("/upload")
@@ -34,7 +37,7 @@ public class FileUploadController {
         if (Objects.requireNonNull(file.getOriginalFilename()).endsWith(".zip")) {
             List<ZippedFile> zippedFileList = fileUploadService.saveZippedFiles(file);
             fileUploadService.parseZippedFiles(zippedFileList);
-            fileUploadService.extractData();
+            apiService.postData(fileUploadService.extractData());
             model.addAttribute("message", "Successfully uploaded file: " + file.getOriginalFilename());
         } else {
             model.addAttribute("fail", "This is not a zip file: " + file.getOriginalFilename());
