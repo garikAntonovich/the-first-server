@@ -5,7 +5,7 @@ import by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile.InfPayA
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExtractedInformation {
+public class ExtractedData {
 
     private Integer docNumEx;
     private String docDateEx;

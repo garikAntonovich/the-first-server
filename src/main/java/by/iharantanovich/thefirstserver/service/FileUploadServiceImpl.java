@@ -1,6 +1,6 @@
 package by.iharantanovich.thefirstserver.service;
 
-import by.iharantanovich.thefirstserver.model.ExtractedInformation;
+import by.iharantanovich.thefirstserver.model.ExtractedData;
 import by.iharantanovich.thefirstserver.model.ZippedFile;
 import by.iharantanovich.thefirstserver.parser.jaxb.mainXmlFile.RootMain;
 import by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile.RootSupplementary;
@@ -25,15 +25,15 @@ public class FileUploadServiceImpl implements FileUploadService {
     protected List<ZippedFile> zippedFiles;
     protected RootMain rootMain;
     protected RootSupplementary rootSupplementary;
-    protected ExtractedInformation extractedInformation;
+    protected ExtractedData extractedData;
 
     @Autowired
     public FileUploadServiceImpl(List<ZippedFile> zippedFiles, RootMain rootMain, RootSupplementary rootSupplementary,
-                                 ExtractedInformation extractedInformation) {
+                                 ExtractedData extractedData) {
         this.zippedFiles = zippedFiles;
         this.rootMain = rootMain;
         this.rootSupplementary = rootSupplementary;
-        this.extractedInformation = extractedInformation;
+        this.extractedData = extractedData;
     }
 
     @Override
@@ -88,29 +88,29 @@ public class FileUploadServiceImpl implements FileUploadService {
         }
     }
 
-    public List<ExtractedInformation> extractingData() {
+    public List<ExtractedData> extractData() {
 
-        List<ExtractedInformation> extractedInformationList = new ArrayList<>();
+        List<ExtractedData> extractedDataList = new ArrayList<>();
 
         for (int index = 0; index < rootMain.getDoc().size(); index++) {
             if (rootMain.getDoc().get(index).getDocGUID().equals(rootSupplementary.getDoc().get(index).getGuid())) {
-                extractedInformation = new ExtractedInformation();
-                extractedInformation.setDocNumEx(rootMain.getDoc().get(index).getDocNum());
-                extractedInformation.setDocDateEx(rootMain.getDoc().get(index).getDocDate());
-                extractedInformation.setDocGUIDEx(rootMain.getDoc().get(index).getDocGUID());
-                extractedInformation.setOperTypeEx(rootMain.getDoc().get(index).getOperType());
-                extractedInformation.setAmountOutEx(rootMain.getDoc().get(index).getAmountOut());
-                extractedInformation.setInfPayEx(rootSupplementary.getDoc().get(index).getInfPay());
-                extractedInformation.setBankPayEx(rootSupplementary.getDoc().get(index).getBankPay());
-                extractedInformation.setInfRcpEx(rootSupplementary.getDoc().get(index).getInfRcp());
-                extractedInformation.setBankRcpEx(rootSupplementary.getDoc().get(index).getBankRcp());
-                extractedInformation.setPurposeEx(rootSupplementary.getDoc().get(index).getPurpose());
-                extractedInformationList.add(extractedInformation);
+                extractedData = new ExtractedData();
+                extractedData.setDocNumEx(rootMain.getDoc().get(index).getDocNum());
+                extractedData.setDocDateEx(rootMain.getDoc().get(index).getDocDate());
+                extractedData.setDocGUIDEx(rootMain.getDoc().get(index).getDocGUID());
+                extractedData.setOperTypeEx(rootMain.getDoc().get(index).getOperType());
+                extractedData.setAmountOutEx(rootMain.getDoc().get(index).getAmountOut());
+                extractedData.setInfPayEx(rootSupplementary.getDoc().get(index).getInfPay());
+                extractedData.setBankPayEx(rootSupplementary.getDoc().get(index).getBankPay());
+                extractedData.setInfRcpEx(rootSupplementary.getDoc().get(index).getInfRcp());
+                extractedData.setBankRcpEx(rootSupplementary.getDoc().get(index).getBankRcp());
+                extractedData.setPurposeEx(rootSupplementary.getDoc().get(index).getPurpose());
+                extractedDataList.add(extractedData);
             }
         }
 
-        System.out.println(extractedInformationList);
+        System.out.println(extractedDataList);
 
-        return extractedInformationList;
+        return extractedDataList;
     }
 }

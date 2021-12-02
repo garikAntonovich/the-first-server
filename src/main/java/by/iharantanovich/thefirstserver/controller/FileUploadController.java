@@ -34,7 +34,7 @@ public class FileUploadController {
         if (Objects.requireNonNull(file.getOriginalFilename()).endsWith(".zip")) {
             List<ZippedFile> zippedFileList = fileUploadService.saveZippedFiles(file);
             fileUploadService.parseZippedFiles(zippedFileList);
-            fileUploadService.extractingData();
+            fileUploadService.extractData();
             model.addAttribute("message", "Successfully uploaded file: " + file.getOriginalFilename());
         } else {
             model.addAttribute("fail", "This is not a zip file: " + file.getOriginalFilename());
