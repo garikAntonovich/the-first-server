@@ -100,7 +100,7 @@ public class ExtractedInformation {
 
     @Override
     public String toString() {
-        return "ExtractedInformation{" +
+        return "{" +
                 "docNumEx=" + docNumEx +
                 ", docDateEx='" + docDateEx + '\'' +
                 ", docGUIDEx='" + docGUIDEx + '\'' +
