@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlElement;
 public class Doc {
 
     private Integer lineNum;
-    private Integer docNum;
+    private String docNum;
     private String docDate;
     private String docGUID;
     private String operType;
@@ -26,11 +26,11 @@ public class Doc {
     }
 
     @XmlElement(name = "DocNum")
-    public Integer getDocNum() {
+    public String getDocNum() {
         return docNum;
     }
 
-    public void setDocNum(Integer docNum) {
+    public void setDocNum(String docNum) {
         this.docNum = docNum;
     }
 

@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class Doc {
 
-    private Integer num;
+    private String num;
     private String date;
     private Long id;
     private Integer nomPp;
@@ -27,11 +27,11 @@ public class Doc {
     private String guid;
 
     @XmlElement(name = "Num")
-    public Integer getNum() {
+    public String getNum() {
         return num;
     }
 
-    public void setNum(Integer num) {
+    public void setNum(String num) {
         this.num = num;
     }
 

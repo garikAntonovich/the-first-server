@@ -94,16 +94,16 @@ public class FileUploadServiceImpl implements FileUploadService {
         for (int index = 0; index < rootMain.getDoc().size(); index++) {
             if (rootMain.getDoc().get(index).getDocGUID().equals(rootSupplementary.getDoc().get(index).getGuid())) {
                 extractedData = new ExtractedData();
-                extractedData.setDocNumEx(rootMain.getDoc().get(index).getDocNum());
-                extractedData.setDocDateEx(rootMain.getDoc().get(index).getDocDate());
-                extractedData.setDocGUIDEx(rootMain.getDoc().get(index).getDocGUID());
-                extractedData.setOperTypeEx(rootMain.getDoc().get(index).getOperType());
-                extractedData.setAmountOutEx(rootMain.getDoc().get(index).getAmountOut());
-                extractedData.setInfPayEx(rootSupplementary.getDoc().get(index).getInfPay());
-                extractedData.setBankPayEx(rootSupplementary.getDoc().get(index).getBankPay());
-                extractedData.setInfRcpEx(rootSupplementary.getDoc().get(index).getInfRcp());
-                extractedData.setBankRcpEx(rootSupplementary.getDoc().get(index).getBankRcp());
-                extractedData.setPurposeEx(rootSupplementary.getDoc().get(index).getPurpose());
+                extractedData.setDocNum(rootMain.getDoc().get(index).getDocNum());
+                extractedData.setDocDate(rootMain.getDoc().get(index).getDocDate());
+                extractedData.setDocGUID(rootMain.getDoc().get(index).getDocGUID());
+                extractedData.setOperType(rootMain.getDoc().get(index).getOperType());
+                extractedData.setAmountOut(rootMain.getDoc().get(index).getAmountOut());
+                extractedData.setInfPay(rootSupplementary.getDoc().get(index).getInfPay());
+                extractedData.setBankPay(rootSupplementary.getDoc().get(index).getBankPay());
+                extractedData.setInfRcp(rootSupplementary.getDoc().get(index).getInfRcp());
+                extractedData.setBankRcp(rootSupplementary.getDoc().get(index).getBankRcp());
+                extractedData.setPurpose(rootSupplementary.getDoc().get(index).getPurpose());
                 extractedDataList.add(extractedData);
             }
         }

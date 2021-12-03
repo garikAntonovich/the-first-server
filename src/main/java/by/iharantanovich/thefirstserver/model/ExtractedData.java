@@ -7,110 +7,110 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExtractedData {
 
-    private Integer docNumEx;
-    private String docDateEx;
-    private String docGUIDEx;
-    private String operTypeEx;
-    private Double amountOutEx;
-    private InfPayAndRcp infPayEx;
-    private BankPayAndRcp bankPayEx;
-    private InfPayAndRcp infRcpEx;
-    private BankPayAndRcp bankRcpEx;
-    private String purposeEx;
+    private String docNum;
+    private String docDate;
+    private String docGUID;
+    private String operType;
+    private Double amountOut;
+    private InfPayAndRcp infPay;
+    private BankPayAndRcp bankPay;
+    private InfPayAndRcp infRcp;
+    private BankPayAndRcp bankRcp;
+    private String purpose;
 
-    public Integer getDocNumEx() {
-        return docNumEx;
+    public String getDocNum() {
+        return docNum;
     }
 
-    public void setDocNumEx(Integer docNumEx) {
-        this.docNumEx = docNumEx;
+    public void setDocNum(String docNum) {
+        this.docNum = docNum;
     }
 
-    public String getDocDateEx() {
-        return docDateEx;
+    public String getDocDate() {
+        return docDate;
     }
 
-    public void setDocDateEx(String docDateEx) {
-        this.docDateEx = docDateEx;
+    public void setDocDate(String docDate) {
+        this.docDate = docDate;
     }
 
-    public String getDocGUIDEx() {
-        return docGUIDEx;
+    public String getDocGUID() {
+        return docGUID;
     }
 
-    public void setDocGUIDEx(String docGUIDEx) {
-        this.docGUIDEx = docGUIDEx;
+    public void setDocGUID(String docGUID) {
+        this.docGUID = docGUID;
     }
 
-    public String getOperTypeEx() {
-        return operTypeEx;
+    public String getOperType() {
+        return operType;
     }
 
-    public void setOperTypeEx(String operTypeEx) {
-        this.operTypeEx = operTypeEx;
+    public void setOperType(String operType) {
+        this.operType = operType;
     }
 
-    public Double getAmountOutEx() {
-        return amountOutEx;
+    public Double getAmountOut() {
+        return amountOut;
     }
 
-    public void setAmountOutEx(Double amountOutEx) {
-        this.amountOutEx = amountOutEx;
+    public void setAmountOut(Double amountOut) {
+        this.amountOut = amountOut;
     }
 
-    public InfPayAndRcp getInfPayEx() {
-        return infPayEx;
+    public InfPayAndRcp getInfPay() {
+        return infPay;
     }
 
-    public void setInfPayEx(InfPayAndRcp infPayEx) {
-        this.infPayEx = infPayEx;
+    public void setInfPay(InfPayAndRcp infPay) {
+        this.infPay = infPay;
     }
 
-    public BankPayAndRcp getBankPayEx() {
-        return bankPayEx;
+    public BankPayAndRcp getBankPay() {
+        return bankPay;
     }
 
-    public void setBankPayEx(BankPayAndRcp bankPayEx) {
-        this.bankPayEx = bankPayEx;
+    public void setBankPay(BankPayAndRcp bankPay) {
+        this.bankPay = bankPay;
     }
 
-    public InfPayAndRcp getInfRcpEx() {
-        return infRcpEx;
+    public InfPayAndRcp getInfRcp() {
+        return infRcp;
     }
 
-    public void setInfRcpEx(InfPayAndRcp infRcpEx) {
-        this.infRcpEx = infRcpEx;
+    public void setInfRcp(InfPayAndRcp infRcp) {
+        this.infRcp = infRcp;
     }
 
-    public BankPayAndRcp getBankRcpEx() {
-        return bankRcpEx;
+    public BankPayAndRcp getBankRcp() {
+        return bankRcp;
     }
 
-    public void setBankRcpEx(BankPayAndRcp bankRcpEx) {
-        this.bankRcpEx = bankRcpEx;
+    public void setBankRcp(BankPayAndRcp bankRcp) {
+        this.bankRcp = bankRcp;
     }
 
-    public String getPurposeEx() {
-        return purposeEx;
+    public String getPurpose() {
+        return purpose;
     }
 
-    public void setPurposeEx(String purposeEx) {
-        this.purposeEx = purposeEx;
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
     }
 
     @Override
     public String toString() {
         return "{" +
-                "docNumEx=" + docNumEx +
-                ", docDateEx='" + docDateEx + '\'' +
-                ", docGUIDEx='" + docGUIDEx + '\'' +
-                ", operTypeEx='" + operTypeEx + '\'' +
-                ", amountOutEx=" + amountOutEx +
-                ", infPayEx=" + infPayEx +
-                ", bankPayEx=" + bankPayEx +
-                ", infRcpEx=" + infRcpEx +
-                ", bankRcpEx=" + bankRcpEx +
-                ", purposeEx='" + purposeEx + '\'' +
+                "docNum=" + docNum +
+                ", docDate='" + docDate + '\'' +
+                ", docGUID='" + docGUID + '\'' +
+                ", operType='" + operType + '\'' +
+                ", amountOut=" + amountOut +
+                ", infPay=" + infPay +
+                ", bankPay=" + bankPay +
+                ", infRcp=" + infRcp +
+                ", bankRcp=" + bankRcp +
+                ", purpose='" + purpose + '\'' +
                 '}';
     }
 }
