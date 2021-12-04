@@ -1,8 +1,8 @@
 package by.iharantanovich.thefirstserver.controller;
 
 import by.iharantanovich.thefirstserver.model.ZippedFile;
-import by.iharantanovich.thefirstserver.service.ApiServiceImpl;
-import by.iharantanovich.thefirstserver.service.FileUploadServiceImpl;
+import by.iharantanovich.thefirstserver.service.ApiService;
+import by.iharantanovich.thefirstserver.service.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +17,11 @@ import java.util.Objects;
 @Controller
 public class FileUploadController {
 
-    protected FileUploadServiceImpl fileUploadService;
-    protected ApiServiceImpl apiService;
+    protected FileUploadService fileUploadService;
+    protected ApiService apiService;
 
     @Autowired
-    public FileUploadController(FileUploadServiceImpl fileUploadService, ApiServiceImpl apiService) {
+    public FileUploadController(FileUploadService fileUploadService, ApiService apiService) {
         this.fileUploadService = fileUploadService;
         this.apiService = apiService;
     }
