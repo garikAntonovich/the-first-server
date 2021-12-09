@@ -93,7 +93,6 @@ public class FileUploadServiceImpl implements FileUploadService {
 
         for (int index = 0; index < rootMain.getDoc().size(); index++) {
             if (rootMain.getDoc().get(index).getDocGUID().equals(rootSupplementary.getDoc().get(index).getGuid())) {
-                extractedData = new ExtractedData();
                 extractedData.setDocNum(rootMain.getDoc().get(index).getDocNum());
                 extractedData.setDocDate(rootMain.getDoc().get(index).getDocDate());
                 extractedData.setDocGUID(rootMain.getDoc().get(index).getDocGUID());
