@@ -1,6 +1,7 @@
-package by.iharantanovich.thefirstserver.service;
+package by.iharantanovich.thefirstserver.service.impl;
 
 import by.iharantanovich.thefirstserver.model.ExtractedData;
+import by.iharantanovich.thefirstserver.service.DataTransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -12,19 +13,15 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @Service
-public class ApiServiceImpl implements ApiService {
+public class DataTransferServiceImpl implements DataTransferService {
 
-    private static final String URL = "http://localhost:8090/post";
-
-    protected RestTemplate restTemplate;
+    private static final String URL = "http://localhost:8090/transfer";
 
     @Autowired
-    public ApiServiceImpl(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
+    private RestTemplate restTemplate;
 
     @Override
-    public void postData(List<ExtractedData> extractedDataList) {
+    public void transferData(List<ExtractedData> extractedDataList) {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Object> requestEntity = new HttpEntity<>(extractedDataList, headers);
         restTemplate.exchange(URL, HttpMethod.POST, requestEntity, new ParameterizedTypeReference<List<ExtractedData>>() {});

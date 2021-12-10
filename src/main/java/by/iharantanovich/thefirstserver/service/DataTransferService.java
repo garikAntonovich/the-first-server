@@ -4,8 +4,8 @@ import by.iharantanovich.thefirstserver.model.ExtractedData;
 
 import java.util.List;
 
-public interface ApiService {
+public interface DataTransferService {
 
-    void postData(List<ExtractedData> extractedDataList);
+    void transferData(List<ExtractedData> extractedDataList);
 
 }

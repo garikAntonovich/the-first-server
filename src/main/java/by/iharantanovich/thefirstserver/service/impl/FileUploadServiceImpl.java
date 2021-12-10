@@ -1,9 +1,10 @@
-package by.iharantanovich.thefirstserver.service;
+package by.iharantanovich.thefirstserver.service.impl;
 
 import by.iharantanovich.thefirstserver.model.ExtractedData;
 import by.iharantanovich.thefirstserver.model.ZippedFile;
 import by.iharantanovich.thefirstserver.parser.jaxb.mainXmlFile.RootMain;
 import by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile.RootSupplementary;
+import by.iharantanovich.thefirstserver.service.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +23,7 @@ public class FileUploadServiceImpl implements FileUploadService {
 
     private static final String MAIN_XML = "</SKP_REPORT_KS>";
     private static final String SUPPLEMENTARY_XML = "</Inf_Pay_Doc>";
+
     protected List<ZippedFile> zippedFiles;
     protected RootMain rootMain;
     protected RootSupplementary rootSupplementary;
