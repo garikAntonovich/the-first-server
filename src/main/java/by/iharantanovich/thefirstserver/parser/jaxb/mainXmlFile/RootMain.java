@@ -1,7 +1,5 @@
 package by.iharantanovich.thefirstserver.parser.jaxb.mainXmlFile;
 
-import org.springframework.stereotype.Component;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -9,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement(name = "SKP_REPORT_KS")
-@Component
 public class RootMain {
 
     private Integer docNum;

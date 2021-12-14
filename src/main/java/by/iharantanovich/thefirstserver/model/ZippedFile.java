@@ -1,8 +1,5 @@
 package by.iharantanovich.thefirstserver.model;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class ZippedFile {
 
     private String fileName;

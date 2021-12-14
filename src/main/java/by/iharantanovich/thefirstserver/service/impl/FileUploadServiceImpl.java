@@ -5,7 +5,6 @@ import by.iharantanovich.thefirstserver.model.ZippedFile;
 import by.iharantanovich.thefirstserver.parser.jaxb.mainXmlFile.RootMain;
 import by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile.RootSupplementary;
 import by.iharantanovich.thefirstserver.service.FileUploadService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,19 +23,9 @@ public class FileUploadServiceImpl implements FileUploadService {
     private static final String MAIN_XML = "</SKP_REPORT_KS>";
     private static final String SUPPLEMENTARY_XML = "</Inf_Pay_Doc>";
 
-    protected List<ZippedFile> zippedFiles;
-    protected RootMain rootMain;
-    protected RootSupplementary rootSupplementary;
-    protected DataToTransfer extractedData;
-
-    @Autowired
-    public FileUploadServiceImpl(List<ZippedFile> zippedFiles, RootMain rootMain, RootSupplementary rootSupplementary,
-                                 DataToTransfer extractedData) {
-        this.zippedFiles = zippedFiles;
-        this.rootMain = rootMain;
-        this.rootSupplementary = rootSupplementary;
-        this.extractedData = extractedData;
-    }
+    protected List<ZippedFile> zippedFiles = new ArrayList<>();
+    private RootMain rootMain;
+    private RootSupplementary rootSupplementary;
 
     @Override
     public List<ZippedFile> saveZippedFiles(MultipartFile file) {
@@ -44,7 +33,6 @@ public class FileUploadServiceImpl implements FileUploadService {
         try (ZipInputStream zis = new ZipInputStream(file.getInputStream())) {
 
             ZipEntry zipEntry;
-            zippedFiles.remove(0);
 
             while ((zipEntry = zis.getNextEntry()) != null) {
                 if (zipEntry.getName().endsWith(".xml")) {
@@ -91,25 +79,25 @@ public class FileUploadServiceImpl implements FileUploadService {
 
     public List<DataToTransfer> extractData() {
 
-        List<DataToTransfer> extractedDataList = new ArrayList<>();
+        List<DataToTransfer> dataToTransferList = new ArrayList<>();
 
         for (int index = 0; index < rootMain.getDoc().size(); index++) {
             if (rootMain.getDoc().get(index).getDocGUID().equals(rootSupplementary.getDoc().get(index).getGuid())) {
-                extractedData = new DataToTransfer();
-                extractedData.setDocNum(rootMain.getDoc().get(index).getDocNum());
-                extractedData.setDocDate(rootMain.getDoc().get(index).getDocDate());
-                extractedData.setDocGUID(rootMain.getDoc().get(index).getDocGUID());
-                extractedData.setOperType(rootMain.getDoc().get(index).getOperType());
-                extractedData.setAmountOut(rootMain.getDoc().get(index).getAmountOut());
-                extractedData.setInfPay(rootSupplementary.getDoc().get(index).getInfPay());
-                extractedData.setBankPay(rootSupplementary.getDoc().get(index).getBankPay());
-                extractedData.setInfRcp(rootSupplementary.getDoc().get(index).getInfRcp());
-                extractedData.setBankRcp(rootSupplementary.getDoc().get(index).getBankRcp());
-                extractedData.setPurpose(rootSupplementary.getDoc().get(index).getPurpose());
-                extractedDataList.add(extractedData);
+                DataToTransfer dataToTransfer = new DataToTransfer();
+                dataToTransfer.setDocNum(rootMain.getDoc().get(index).getDocNum());
+                dataToTransfer.setDocDate(rootMain.getDoc().get(index).getDocDate());
+                dataToTransfer.setDocGUID(rootMain.getDoc().get(index).getDocGUID());
+                dataToTransfer.setOperType(rootMain.getDoc().get(index).getOperType());
+                dataToTransfer.setAmountOut(rootMain.getDoc().get(index).getAmountOut());
+                dataToTransfer.setInfPay(rootSupplementary.getDoc().get(index).getInfPay());
+                dataToTransfer.setBankPay(rootSupplementary.getDoc().get(index).getBankPay());
+                dataToTransfer.setInfRcp(rootSupplementary.getDoc().get(index).getInfRcp());
+                dataToTransfer.setBankRcp(rootSupplementary.getDoc().get(index).getBankRcp());
+                dataToTransfer.setPurpose(rootSupplementary.getDoc().get(index).getPurpose());
+                dataToTransferList.add(dataToTransfer);
             }
         }
 
-        return extractedDataList;
+        return dataToTransferList;
     }
 }
