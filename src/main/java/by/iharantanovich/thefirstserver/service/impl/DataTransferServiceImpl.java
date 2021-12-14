@@ -1,6 +1,6 @@
 package by.iharantanovich.thefirstserver.service.impl;
 
-import by.iharantanovich.thefirstserver.model.ExtractedData;
+import by.iharantanovich.thefirstserver.model.DataToTransfer;
 import by.iharantanovich.thefirstserver.service.DataTransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -21,9 +21,8 @@ public class DataTransferServiceImpl implements DataTransferService {
     private RestTemplate restTemplate;
 
     @Override
-    public void transferData(List<ExtractedData> extractedDataList) {
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<Object> requestEntity = new HttpEntity<>(extractedDataList, headers);
-        restTemplate.exchange(URL, HttpMethod.POST, requestEntity, new ParameterizedTypeReference<List<ExtractedData>>() {});
+    public void transferData(List<DataToTransfer> dataToTransfers) {
+        HttpEntity<Object> requestEntity = new HttpEntity<>(dataToTransfers, new HttpHeaders());
+        restTemplate.exchange(URL, HttpMethod.POST, requestEntity, new ParameterizedTypeReference<List<DataToTransfer>>() {});
     }
 }

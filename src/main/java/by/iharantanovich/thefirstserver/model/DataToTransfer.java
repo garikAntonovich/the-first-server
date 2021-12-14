@@ -5,7 +5,7 @@ import by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile.InfPayA
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExtractedData {
+public class DataToTransfer {
 
     private String docNum;
     private String docDate;

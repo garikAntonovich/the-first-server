@@ -1,6 +1,6 @@
 package by.iharantanovich.thefirstserver.service;
 
-import by.iharantanovich.thefirstserver.model.ExtractedData;
+import by.iharantanovich.thefirstserver.model.DataToTransfer;
 import by.iharantanovich.thefirstserver.model.ZippedFile;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,6 +12,5 @@ public interface FileUploadService {
 
     void parseZippedFiles(List<ZippedFile> zippedFiles);
 
-    List<ExtractedData> extractData();
-
+    List<DataToTransfer> extractData();
 }

@@ -1,6 +1,6 @@
 package by.iharantanovich.thefirstserver.service.impl;
 
-import by.iharantanovich.thefirstserver.model.ExtractedData;
+import by.iharantanovich.thefirstserver.model.DataToTransfer;
 import by.iharantanovich.thefirstserver.model.ZippedFile;
 import by.iharantanovich.thefirstserver.parser.jaxb.mainXmlFile.RootMain;
 import by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile.RootSupplementary;
@@ -27,11 +27,11 @@ public class FileUploadServiceImpl implements FileUploadService {
     protected List<ZippedFile> zippedFiles;
     protected RootMain rootMain;
     protected RootSupplementary rootSupplementary;
-    protected ExtractedData extractedData;
+    protected DataToTransfer extractedData;
 
     @Autowired
     public FileUploadServiceImpl(List<ZippedFile> zippedFiles, RootMain rootMain, RootSupplementary rootSupplementary,
-                                 ExtractedData extractedData) {
+                                 DataToTransfer extractedData) {
         this.zippedFiles = zippedFiles;
         this.rootMain = rootMain;
         this.rootSupplementary = rootSupplementary;
@@ -89,13 +89,13 @@ public class FileUploadServiceImpl implements FileUploadService {
         }
     }
 
-    public List<ExtractedData> extractData() {
+    public List<DataToTransfer> extractData() {
 
-        List<ExtractedData> extractedDataList = new ArrayList<>();
+        List<DataToTransfer> extractedDataList = new ArrayList<>();
 
         for (int index = 0; index < rootMain.getDoc().size(); index++) {
             if (rootMain.getDoc().get(index).getDocGUID().equals(rootSupplementary.getDoc().get(index).getGuid())) {
-                extractedData = new ExtractedData();
+                extractedData = new DataToTransfer();
                 extractedData.setDocNum(rootMain.getDoc().get(index).getDocNum());
                 extractedData.setDocDate(rootMain.getDoc().get(index).getDocDate());
                 extractedData.setDocGUID(rootMain.getDoc().get(index).getDocGUID());
