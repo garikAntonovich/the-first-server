@@ -5,6 +5,7 @@ import by.iharantanovich.thefirstserver.model.ZippedFile;
 import by.iharantanovich.thefirstserver.parser.jaxb.mainXmlFile.RootMain;
 import by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile.RootSupplementary;
 import by.iharantanovich.thefirstserver.service.FileUploadService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
