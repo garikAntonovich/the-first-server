@@ -27,6 +27,7 @@ public class FileUploadController {
         } else {
             model.addAttribute("message", "Successfully uploaded file: " + file.getOriginalFilename());
             fileUploadService.processingFile(file);
+            fileUploadService.transferData();
         }
         return "upload_status_view";
     }

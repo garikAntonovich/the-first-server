@@ -115,6 +115,5 @@ public class FileUploadServiceImpl implements FileUploadService {
         saveZippedFiles(file);
         parseZippedFiles();
         extractData();
-        transferData();
     }
 }
