@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUploadController {
 
     @Autowired
-    FileUploadService fileUploadService;
+    private FileUploadService fileUploadService;
 
     @GetMapping("/upload")
     public String uploadPage() {

@@ -1,11 +1,16 @@
-package by.iharantanovich.thefirstserver.service.impl;
+package by.iharantanovich.thefirstserver.service;
 
 import by.iharantanovich.thefirstserver.model.DataToTransfer;
 import by.iharantanovich.thefirstserver.model.ZippedFile;
 import by.iharantanovich.thefirstserver.parser.jaxb.mainXmlFile.RootMain;
 import by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile.RootSupplementary;
-import by.iharantanovich.thefirstserver.service.FileUploadService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.xml.bind.JAXBContext;
@@ -20,16 +25,15 @@ import java.util.zip.ZipInputStream;
 @Service
 public class FileUploadServiceImpl implements FileUploadService {
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     private List<ZippedFile> zippedFileList;
+    private List<DataToTransfer> dataToTransferList;
     private RootMain rootMain;
     private RootSupplementary rootSupplementary;
 
-    @Override
-    public List<DataToTransfer> processingFile(MultipartFile file) {
-        saveZippedFiles(file);
-        parseZippedFiles(zippedFileList);
-        return extractData();
-    }
+    private static final String URL = "http://localhost:8090/transfer";
 
     @Override
     public void saveZippedFiles(MultipartFile file) {
@@ -54,11 +58,11 @@ public class FileUploadServiceImpl implements FileUploadService {
     }
 
     @Override
-    public void parseZippedFiles(List<ZippedFile> zippedFiles) {
+    public void parseZippedFiles() {
 
         try {
 
-            for (ZippedFile zippedFile : zippedFiles) {
+            for (ZippedFile zippedFile : zippedFileList) {
 
                 if (zippedFile.getData().endsWith("</SKP_REPORT_KS>")) {
                     RootMain mainXml = (RootMain) JAXBContext.newInstance(RootMain.class).createUnmarshaller().
@@ -80,9 +84,9 @@ public class FileUploadServiceImpl implements FileUploadService {
     }
 
     @Override
-    public List<DataToTransfer> extractData() {
+    public void extractData() {
 
-        List<DataToTransfer> dataToTransferList = new ArrayList<>();
+        dataToTransferList = new ArrayList<>();
 
         for (int index = 0; index < rootMain.getDoc().size(); index++) {
             if (rootMain.getDoc().get(index).getDocGUID().equals(rootSupplementary.getDoc().get(index).getGuid())) {
@@ -98,7 +102,19 @@ public class FileUploadServiceImpl implements FileUploadService {
                 dataToTransferList.add(dataToTransfer);
             }
         }
+    }
 
-        return dataToTransferList;
+    @Override
+    public void transferData() {
+        HttpEntity<Object> requestEntity = new HttpEntity<>(dataToTransferList, new HttpHeaders());
+        restTemplate.exchange(URL, HttpMethod.POST, requestEntity, new ParameterizedTypeReference<List<DataToTransfer>>() {});
+    }
+
+    @Override
+    public void processingFile(MultipartFile file) {
+        saveZippedFiles(file);
+        parseZippedFiles();
+        extractData();
+        transferData();
     }
 }

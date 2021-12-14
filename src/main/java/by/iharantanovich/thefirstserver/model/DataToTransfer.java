@@ -16,6 +16,23 @@ public class DataToTransfer {
     private BankPayAndRcp bankRcp;
     private String purpose;
 
+    public DataToTransfer() {
+    }
+
+    public DataToTransfer(String docNum, String docDate, String docGUID, String operType, Double amountOut, InfPayAndRcp infPay,
+                          BankPayAndRcp bankPay, InfPayAndRcp infRcp, BankPayAndRcp bankRcp, String purpose) {
+        this.docNum = docNum;
+        this.docDate = docDate;
+        this.docGUID = docGUID;
+        this.operType = operType;
+        this.amountOut = amountOut;
+        this.infPay = infPay;
+        this.bankPay = bankPay;
+        this.infRcp = infRcp;
+        this.bankRcp = bankRcp;
+        this.purpose = purpose;
+    }
+
     public String getDocNum() {
         return docNum;
     }
