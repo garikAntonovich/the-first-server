@@ -71,4 +71,20 @@ public class Root {
     public StmInfrmtnTf getStmInfrmtnTf() {
         return stmInfrmtnTf;
     }
+
+    @Override
+    public String toString() {
+        return "Root{" +
+                "docNum=" + docNum +
+                ", docDate='" + docDate + '\'' +
+                ", docDateOld='" + docDateOld + '\'' +
+                ", accNum='" + accNum + '\'' +
+                ", reportTypeFlag='" + reportTypeFlag + '\'' +
+                ", codeOkeu=" + codeOkeu +
+                ", docs=" + docs +
+                ", executorSFP='" + executorSFP + '\'' +
+                ", executorPost='" + executorPost + '\'' +
+                ", stmInfrmtnTf=" + stmInfrmtnTf +
+                '}';
+    }
 }

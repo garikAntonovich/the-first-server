@@ -75,4 +75,21 @@ public class Docs {
     public String getPurpPay() {
         return purpPay;
     }
+
+    @Override
+    public String toString() {
+        return "Doc{" +
+                "lineNum=" + lineNum +
+                ", docNum='" + docNum + '\'' +
+                ", docDate='" + docDate + '\'' +
+                ", docGUID='" + docGUID + '\'' +
+                ", operType='" + operType + '\'' +
+                ", bicCorr=" + bicCorr +
+                ", amountIn=" + amountIn +
+                ", amountOut=" + amountOut +
+                ", sendAcc='" + sendAcc + '\'' +
+                ", recipAcc='" + recipAcc + '\'' +
+                ", purpPay='" + purpPay + '\'' +
+                '}';
+    }
 }
