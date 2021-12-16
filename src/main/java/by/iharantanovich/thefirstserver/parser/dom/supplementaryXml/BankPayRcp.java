@@ -1,4 +1,4 @@
-package by.iharantanovich.thefirstserver.parser.dom;
+package by.iharantanovich.thefirstserver.parser.dom.supplementaryXml;
 
 public class BankPayRcp {
 
