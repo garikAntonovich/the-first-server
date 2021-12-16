@@ -6,9 +6,13 @@ public interface FileUploadService {
 
     void saveZippedFiles(MultipartFile file);
 
-    void parseZippedFiles();
+    void parseZippedFilesJAXB();
 
-    void extractData();
+    void parseZippedFilesDom();
+
+    void saveDataToTransfeFromJAXB();
+
+    void saveDataToTransfeFromDom();
 
     void transferData();
 

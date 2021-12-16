@@ -58,7 +58,7 @@ public class FileUploadServiceImpl implements FileUploadService {
     }
 
     @Override
-    public void parseZippedFiles() {
+    public void parseZippedFilesJAXB() {
 
         try {
 
@@ -84,7 +84,12 @@ public class FileUploadServiceImpl implements FileUploadService {
     }
 
     @Override
-    public void extractData() {
+    public void parseZippedFilesDom() {
+
+    }
+
+    @Override
+    public void saveDataToTransfeFromJAXB() {
 
         dataToTransferList = new ArrayList<>();
 
@@ -105,6 +110,11 @@ public class FileUploadServiceImpl implements FileUploadService {
     }
 
     @Override
+    public void saveDataToTransfeFromDom() {
+
+    }
+
+    @Override
     public void transferData() {
         HttpEntity<Object> requestEntity = new HttpEntity<>(dataToTransferList, new HttpHeaders());
         restTemplate.exchange(URL, HttpMethod.POST, requestEntity, new ParameterizedTypeReference<List<DataToTransfer>>() {});
@@ -113,7 +123,7 @@ public class FileUploadServiceImpl implements FileUploadService {
     @Override
     public void processingFile(MultipartFile file) {
         saveZippedFiles(file);
-        parseZippedFiles();
-        extractData();
+        parseZippedFilesJAXB();
+        saveDataToTransfeFromJAXB();
     }
 }
