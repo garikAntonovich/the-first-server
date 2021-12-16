@@ -2,94 +2,97 @@ package by.iharantanovich.thefirstserver.parser.dom;
 
 public class Docs {
 
-    private Integer lineNum;
     private String docNum;
     private String docDate;
     private String docGUID;
     private String operType;
-    private Integer bicCorr;
-    private Double amountIn;
     private Double amountOut;
-    private String sendAcc;
-    private String recipAcc;
-    private String purpPay;
+
+    private InfPayRcp infPay;
+    private InfPayRcp infRcp;
+    private BankPayRcp bankPay;
+    private BankPayRcp bankRcp;
 
     public Docs() {
     }
 
-    public Docs(Integer lineNum, String docNum, String docDate, String docGUID, String operType, Integer bicCorr, Double amountIn,
-                Double amountOut, String sendAcc, String recipAcc, String purpPay) {
-        this.lineNum = lineNum;
+    public Docs(String docNum, String docDate, String docGUID, String operType, Double amountOut) {
         this.docNum = docNum;
         this.docDate = docDate;
         this.docGUID = docGUID;
         this.operType = operType;
-        this.bicCorr = bicCorr;
-        this.amountIn = amountIn;
         this.amountOut = amountOut;
-        this.sendAcc = sendAcc;
-        this.recipAcc = recipAcc;
-        this.purpPay = purpPay;
-    }
-
-    public Integer getLineNum() {
-        return lineNum;
     }
 
     public String getDocNum() {
         return docNum;
     }
 
+    public void setDocNum(String docNum) {
+        this.docNum = docNum;
+    }
+
     public String getDocDate() {
         return docDate;
+    }
+
+    public void setDocDate(String docDate) {
+        this.docDate = docDate;
     }
 
     public String getDocGUID() {
         return docGUID;
     }
 
+    public void setDocGUID(String docGUID) {
+        this.docGUID = docGUID;
+    }
+
     public String getOperType() {
         return operType;
     }
 
-    public Integer getBicCorr() {
-        return bicCorr;
-    }
-
-    public Double getAmountIn() {
-        return amountIn;
+    public void setOperType(String operType) {
+        this.operType = operType;
     }
 
     public Double getAmountOut() {
         return amountOut;
     }
 
-    public String getSendAcc() {
-        return sendAcc;
+    public void setAmountOut(Double amountOut) {
+        this.amountOut = amountOut;
     }
 
-    public String getRecipAcc() {
-        return recipAcc;
+    public InfPayRcp getInfPay() {
+        return infPay;
     }
 
-    public String getPurpPay() {
-        return purpPay;
+    public void setInfPay(InfPayRcp infPay) {
+        this.infPay = infPay;
     }
 
-    @Override
-    public String toString() {
-        return "Doc{" +
-                "lineNum=" + lineNum +
-                ", docNum='" + docNum + '\'' +
-                ", docDate='" + docDate + '\'' +
-                ", docGUID='" + docGUID + '\'' +
-                ", operType='" + operType + '\'' +
-                ", bicCorr=" + bicCorr +
-                ", amountIn=" + amountIn +
-                ", amountOut=" + amountOut +
-                ", sendAcc='" + sendAcc + '\'' +
-                ", recipAcc='" + recipAcc + '\'' +
-                ", purpPay='" + purpPay + '\'' +
-                '}';
+    public InfPayRcp getInfRcp() {
+        return infRcp;
+    }
+
+    public void setInfRcp(InfPayRcp infRcp) {
+        this.infRcp = infRcp;
+    }
+
+    public BankPayRcp getBankPay() {
+        return bankPay;
+    }
+
+    public void setBankPay(BankPayRcp bankPay) {
+        this.bankPay = bankPay;
+    }
+
+    public BankPayRcp getBankRcp() {
+        return bankRcp;
+    }
+
+    public void setBankRcp(BankPayRcp bankRcp) {
+        this.bankRcp = bankRcp;
     }
 }
