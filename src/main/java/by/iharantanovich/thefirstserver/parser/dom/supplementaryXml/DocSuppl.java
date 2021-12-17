@@ -6,6 +6,8 @@ public class DocSuppl {
     private InfPayRcp infRcp;
     private BankPayRcp bankPay;
     private BankPayRcp bankRcp;
+    private String purpose;
+    private String guid;
 
     public InfPayRcp getInfPay() {
         return infPay;
@@ -39,6 +41,22 @@ public class DocSuppl {
         this.bankRcp = bankRcp;
     }
 
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
+
+    public String getGuid() {
+        return guid;
+    }
+
+    public void setGuid(String guid) {
+        this.guid = guid;
+    }
+
     @Override
     public String toString() {
         return "DocSuppl{" +
@@ -46,6 +64,8 @@ public class DocSuppl {
                 ", infRcp=" + infRcp +
                 ", bankPay=" + bankPay +
                 ", bankRcp=" + bankRcp +
+                ", purpose='" + purpose + '\'' +
+                ", guid='" + guid + '\'' +
                 '}';
     }
 }

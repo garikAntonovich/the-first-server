@@ -1,4 +1,4 @@
-package by.iharantanovich.thefirstserver.parser.jaxb.model.supplementaryXmlFile;
+package by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile;
 
 import javax.xml.bind.annotation.XmlElement;
 

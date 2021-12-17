@@ -1,4 +1,4 @@
-package by.iharantanovich.thefirstserver.parser.jaxb.model.supplementaryXmlFile;
+package by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -7,6 +7,15 @@ public class InfPayAndRcp {
     private String innPay;
     private String kppPay;
     private String cNamePay;
+
+    public InfPayAndRcp() {
+    }
+
+    public InfPayAndRcp(String innPay, String kppPay, String cNamePay) {
+        this.innPay = innPay;
+        this.kppPay = kppPay;
+        this.cNamePay = cNamePay;
+    }
 
     @XmlElement(name = "INN_PAY")
     public String getInnPay() {

@@ -1,50 +1,10 @@
 package by.iharantanovich.thefirstserver.parser.dom.supplementaryXml;
 
-public class BankPayRcp {
+import by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile.BankPayAndRcp;
 
-    private String bsPay;
-    private String bicPay;
-    private String bsKsPay;
-
-    public BankPayRcp() {
-    }
+public class BankPayRcp extends BankPayAndRcp {
 
     public BankPayRcp(String bsPay, String bicPay, String bsKsPay) {
-        this.bsPay = bsPay;
-        this.bicPay = bicPay;
-        this.bsKsPay = bsKsPay;
-    }
-
-    public String getBsPay() {
-        return bsPay;
-    }
-
-    public void setBsPay(String bsPay) {
-        this.bsPay = bsPay;
-    }
-
-    public String getBicPay() {
-        return bicPay;
-    }
-
-    public void setBicPay(String bicPay) {
-        this.bicPay = bicPay;
-    }
-
-    public String getBsKsPay() {
-        return bsKsPay;
-    }
-
-    public void setBsKsPay(String bsKsPay) {
-        this.bsKsPay = bsKsPay;
-    }
-
-    @Override
-    public String toString() {
-        return "BankPayRcp{" +
-                "bsPay='" + bsPay + '\'' +
-                ", bicPay='" + bicPay + '\'' +
-                ", bsKsPay='" + bsKsPay + '\'' +
-                '}';
+        super(bsPay, bicPay, bsKsPay);
     }
 }
