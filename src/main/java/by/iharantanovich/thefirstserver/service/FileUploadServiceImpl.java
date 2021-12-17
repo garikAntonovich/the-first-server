@@ -2,6 +2,10 @@ package by.iharantanovich.thefirstserver.service;
 
 import by.iharantanovich.thefirstserver.model.DataToTransfer;
 import by.iharantanovich.thefirstserver.model.ZippedFile;
+import by.iharantanovich.thefirstserver.parser.dom.mainXml.Doc;
+import by.iharantanovich.thefirstserver.parser.dom.supplementaryXml.BankPayRcp;
+import by.iharantanovich.thefirstserver.parser.dom.supplementaryXml.DocSuppl;
+import by.iharantanovich.thefirstserver.parser.dom.supplementaryXml.InfPayRcp;
 import by.iharantanovich.thefirstserver.parser.jaxb.mainXmlFile.RootMain;
 import by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile.RootSupplementary;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
@@ -38,6 +41,8 @@ public class FileUploadServiceImpl implements FileUploadService {
     private List<DataToTransfer> dataToTransferList;
     private RootMain rootMain;
     private RootSupplementary rootSupplementary;
+    private List<Doc> docList;
+    private List<DocSuppl> docSupplList;
 
     private static final String URL = "http://localhost:8090/transfer";
 
@@ -93,9 +98,10 @@ public class FileUploadServiceImpl implements FileUploadService {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
         Document document = null;
-
-        DataToTransfer dataToTransfer;
-        dataToTransferList = new ArrayList<>();
+        Doc doc;
+        DocSuppl docSuppl;
+        docList = new ArrayList<>();
+        docSupplList = new ArrayList<>();
 
         for (ZippedFile zippedFile : zippedFileList) {
 
@@ -107,29 +113,59 @@ public class FileUploadServiceImpl implements FileUploadService {
             }
 
             if (zippedFile.getData().endsWith("</SKP_REPORT_KS>")) {
-                NodeList lineNumElements = document.getDocumentElement().getElementsByTagName("Line_Num");
+
                 NodeList docNumElements = document.getDocumentElement().getElementsByTagName("DocNum");
                 NodeList docDateElements = document.getDocumentElement().getElementsByTagName("DocDate");
                 NodeList docGUIDElements = document.getDocumentElement().getElementsByTagName("DocGUID");
                 NodeList operTypeElements = document.getDocumentElement().getElementsByTagName("OperType");
                 NodeList amountOutElements = document.getDocumentElement().getElementsByTagName("AmountOut");
 
-                for (int index = 0; index < lineNumElements.getLength(); index++) {
-                    dataToTransfer = new DataToTransfer();
-                    dataToTransfer.setDocNum(docNumElements.item(index + 1).getTextContent());
-                    dataToTransfer.setDocDate(docDateElements.item(index).getTextContent());
-                    dataToTransfer.setDocGUID(docGUIDElements.item(index).getTextContent());
-                    dataToTransfer.setOperType(operTypeElements.item(index).getTextContent());
-                    dataToTransfer.setAmountOut(Double.valueOf(amountOutElements.item(index).getTextContent()));
-                    dataToTransferList.add(dataToTransfer);
+                for (int index = 0; index < operTypeElements.getLength(); index++) {
+                    doc = new Doc();
+                    doc.setDocNum(docNumElements.item(index + 1).getTextContent());
+                    doc.setDocDate(docDateElements.item(index).getTextContent());
+                    doc.setDocGUID(docGUIDElements.item(index).getTextContent());
+                    doc.setOperType(operTypeElements.item(index).getTextContent());
+                    doc.setAmountOut(Double.valueOf(amountOutElements.item(index).getTextContent()));
+
+                    docList.add(doc);
                 }
             }
 
             if (zippedFile.getData().endsWith("</Inf_Pay_Doc>")) {
 
-            }
+                NodeList innPayElements = document.getDocumentElement().getElementsByTagName("INN_PAY");
+                NodeList kppPayElements = document.getDocumentElement().getElementsByTagName("KPP_PAY");
+                NodeList cNamePayElements = document.getDocumentElement().getElementsByTagName("CName_PAY");
+                NodeList bsPayElements = document.getDocumentElement().getElementsByTagName("BS_PAY");
+                NodeList bicPayElements = document.getDocumentElement().getElementsByTagName("BIC_PAY");
+                NodeList bsKsPayElements = document.getDocumentElement().getElementsByTagName("BS_KS_PAY");
+                NodeList purposeElements = document.getDocumentElement().getElementsByTagName("Purpose");
+                NodeList giudElements = document.getDocumentElement().getElementsByTagName("GUID");
 
-            System.out.println(dataToTransferList);
+                for (int index = 0; index < innPayElements.getLength(); index += 2) {
+
+                    docSuppl = new DocSuppl();
+                    docSuppl.setInfPay(new InfPayRcp(innPayElements.item(index).getTextContent(),
+                            kppPayElements.item(index).getTextContent(), cNamePayElements.item(index).getTextContent()));
+                    docSuppl.setInfRcp(new InfPayRcp(innPayElements.item(index + 1).getTextContent(),
+                            kppPayElements.item(index + 1).getTextContent(), cNamePayElements.item(index + 1).getTextContent()));
+                    docSuppl.setBankPay(new BankPayRcp(bsPayElements.item(index).getTextContent(),
+                            bicPayElements.item(index).getTextContent(), bsKsPayElements.item(index).getTextContent()));
+                    docSuppl.setBankRcp(new BankPayRcp(bsPayElements.item(index + 1).getTextContent(),
+                            bicPayElements.item(index + 1).getTextContent(), bsKsPayElements.item(index + 1).getTextContent()));
+
+                    if (index == 0) {
+                        docSuppl.setPurpose(purposeElements.item(index).getTextContent());
+                        docSuppl.setGuid(giudElements.item(index).getTextContent());
+                    } else {
+                        docSuppl.setPurpose(purposeElements.item(index / 2).getTextContent());
+                        docSuppl.setGuid(giudElements.item(index / 2).getTextContent());
+                    }
+
+                    docSupplList.add(docSuppl);
+                }
+            }
         }
     }
 
@@ -141,14 +177,17 @@ public class FileUploadServiceImpl implements FileUploadService {
         for (int index = 0; index < rootMain.getDoc().size(); index++) {
             if (rootMain.getDoc().get(index).getDocGUID().equals(rootSupplementary.getDoc().get(index).getGuid())) {
                 DataToTransfer dataToTransfer = new DataToTransfer(
-                        rootMain.getDoc().get(index).getDocNum(), rootMain.getDoc().get(index).getDocDate(),
-                        rootMain.getDoc().get(index).getDocGUID(), rootMain.getDoc().get(index).getOperType(),
+                        rootMain.getDoc().get(index).getDocNum(),
+                        rootMain.getDoc().get(index).getDocDate(),
+                        rootMain.getDoc().get(index).getDocGUID(),
+                        rootMain.getDoc().get(index).getOperType(),
                         rootMain.getDoc().get(index).getAmountOut(),
                         rootSupplementary.getDoc().get(index).getInfPay(),
                         rootSupplementary.getDoc().get(index).getBankPay(),
                         rootSupplementary.getDoc().get(index).getInfRcp(),
                         rootSupplementary.getDoc().get(index).getBankRcp(),
-                        rootSupplementary.getDoc().get(index).getPurpose());
+                        rootSupplementary.getDoc().get(index).getPurpose()
+                );
                 dataToTransferList.add(dataToTransfer);
             }
         }
@@ -156,7 +195,25 @@ public class FileUploadServiceImpl implements FileUploadService {
 
     @Override
     public void saveDataToTransfeFromDom() {
+        dataToTransferList = new ArrayList<>();
 
+        for (int index = 0; index < docList.size(); index++) {
+            if (docList.get(index).getDocGUID().equalsIgnoreCase(docSupplList.get(index).getGuid())) {
+                DataToTransfer dataToTransfer = new DataToTransfer(
+                        docList.get(index).getDocNum(),
+                        docList.get(index).getDocDate(),
+                        docList.get(index).getDocGUID(),
+                        docList.get(index).getOperType(),
+                        docList.get(index).getAmountOut(),
+                        docSupplList.get(index).getInfPay(),
+                        docSupplList.get(index).getBankPay(),
+                        docSupplList.get(index).getInfRcp(),
+                        docSupplList.get(index).getBankRcp(),
+                        docSupplList.get(index).getPurpose()
+                );
+                dataToTransferList.add(dataToTransfer);
+            }
+        }
     }
 
     @Override
@@ -172,5 +229,6 @@ public class FileUploadServiceImpl implements FileUploadService {
 //        parseZippedFilesJAXB();
         parseZippedFilesDom();
 //        saveDataToTransfeFromJAXB();
+        saveDataToTransfeFromDom();
     }
 }
