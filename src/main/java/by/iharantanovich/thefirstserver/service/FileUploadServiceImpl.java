@@ -2,8 +2,6 @@ package by.iharantanovich.thefirstserver.service;
 
 import by.iharantanovich.thefirstserver.model.DataToTransfer;
 import by.iharantanovich.thefirstserver.model.ZippedFile;
-import by.iharantanovich.thefirstserver.parser.dom.mainXml.Doc;
-import by.iharantanovich.thefirstserver.parser.dom.supplementaryXml.DocSuppl;
 import by.iharantanovich.thefirstserver.parser.jaxb.mainXmlFile.RootMain;
 import by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile.RootSupplementary;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,7 @@ import org.xml.sax.InputSource;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.IOException;
 import java.io.StringReader;
@@ -91,140 +90,46 @@ public class FileUploadServiceImpl implements FileUploadService {
     @Override
     public void parseZippedFilesDom() {
 
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder;
         Document document = null;
 
+        DataToTransfer dataToTransfer;
+        dataToTransferList = new ArrayList<>();
+
         for (ZippedFile zippedFile : zippedFileList) {
+
             try {
-                document = documentBuilderFactory.newDocumentBuilder().parse(new InputSource(new StringReader(zippedFile.getData())));
+                builder = factory.newDocumentBuilder();
+                document = builder.parse(new InputSource(new StringReader(zippedFile.getData())));
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            Node rootNode = document.getFirstChild();
-            NodeList rootChilds = rootNode.getChildNodes();
-            Node docsNode = null;
-            for (int index = 0; index < rootChilds.getLength(); index++) {
-                if (rootChilds.item(index).getNodeType() != Node.ELEMENT_NODE) {
-                    continue;
-                }
+            if (zippedFile.getData().endsWith("</SKP_REPORT_KS>")) {
+                NodeList lineNumElements = document.getDocumentElement().getElementsByTagName("Line_Num");
+                NodeList docNumElements = document.getDocumentElement().getElementsByTagName("DocNum");
+                NodeList docDateElements = document.getDocumentElement().getElementsByTagName("DocDate");
+                NodeList docGUIDElements = document.getDocumentElement().getElementsByTagName("DocGUID");
+                NodeList operTypeElements = document.getDocumentElement().getElementsByTagName("OperType");
+                NodeList amountOutElements = document.getDocumentElement().getElementsByTagName("AmountOut");
 
-                if (rootChilds.item(index).getNodeName().equals("Docs")) {
-                    docsNode = rootChilds.item(index);
+                for (int index = 0; index < lineNumElements.getLength(); index++) {
+                    dataToTransfer = new DataToTransfer();
+                    dataToTransfer.setDocNum(docNumElements.item(index + 1).getTextContent());
+                    dataToTransfer.setDocDate(docDateElements.item(index).getTextContent());
+                    dataToTransfer.setDocGUID(docGUIDElements.item(index).getTextContent());
+                    dataToTransfer.setOperType(operTypeElements.item(index).getTextContent());
+                    dataToTransfer.setAmountOut(Double.valueOf(amountOutElements.item(index).getTextContent()));
+                    dataToTransferList.add(dataToTransfer);
                 }
             }
 
-            if (docsNode == null) {
-                return;
+            if (zippedFile.getData().endsWith("</Inf_Pay_Doc>")) {
+
             }
 
-            NodeList docsChilds = docsNode.getChildNodes();
-
-            List<Doc> docList = new ArrayList<>();
-            List<DocSuppl> docSupplList = new ArrayList<>();
-
-            for (int index = 0; index < docsChilds.getLength(); index++) {
-                if (docsChilds.item(index).getNodeType() != Node.ELEMENT_NODE) {
-                    continue;
-                }
-
-                if (!docsChilds.item(index).getNodeName().equals("Doc")) {
-                    continue;
-                }
-
-                Doc doc = null;
-                DocSuppl docSuppl = null;
-                NodeList docChilds = docsChilds.item(index).getChildNodes();
-
-                for (int jindex = 0; jindex < docChilds.getLength(); jindex++) {
-                    if (docChilds.item(index).getNodeType() != Node.ELEMENT_NODE) {
-                        continue;
-                    }
-
-                    if (zippedFile.getData().endsWith("</SKP_REPORT_KS>")) {
-                        doc = new Doc();
-                        switch (docChilds.item(jindex).getNodeName()) {
-                            case "DocNum":
-                                doc.setDocNum(docChilds.item(jindex).getTextContent());
-                                break;
-                            case "DocDate":
-                                doc.setDocDate(docChilds.item(jindex).getTextContent());
-                                break;
-                            case "DocGUID":
-                                doc.setDocGUID(docChilds.item(jindex).getTextContent());
-                                break;
-                            case "OperType":
-                                doc.setOperType(docChilds.item(jindex).getTextContent());
-                                break;
-                            case "AmountOut":
-                                doc.setAmountOut(Double.valueOf(docChilds.item(jindex).getTextContent()));
-                                break;
-                        }
-                    }
-
-                    if (zippedFile.getData().endsWith("</Inf_Pay_Doc>")) {
-                        docSuppl = new DocSuppl();
-
-                        if (docChilds.item(jindex).getNodeName().startsWith("Inf")) {
-                            NodeList infPayRcpChilds = docChilds.item(jindex).getChildNodes();
-                            for (int kindex = 0; kindex < infPayRcpChilds.getLength(); kindex++) {
-                                if (infPayRcpChilds.item(index).getNodeType() != Node.ELEMENT_NODE) {
-                                    continue;
-                                }
-                                switch (infPayRcpChilds.item(kindex).getNodeName()) {
-                                    case "INN_PAY":
-                                        if (infPayRcpChilds.item(kindex).getNodeName().equals("Inf_PAY"))
-                                            docSuppl.getInfPay().setInnPay(infPayRcpChilds.item(kindex).getTextContent());
-                                        if (infPayRcpChilds.item(kindex).getNodeName().equals("Inf_RCP"))
-                                            docSuppl.getInfRcp().setInnPay(infPayRcpChilds.item(kindex).getTextContent());
-                                        break;
-                                    case "KPP_PAY":
-                                        if (infPayRcpChilds.item(kindex).getNodeName().equals("Inf_PAY"))
-                                            docSuppl.getInfPay().setKppPay(infPayRcpChilds.item(kindex).getTextContent());
-                                        if (infPayRcpChilds.item(kindex).getNodeName().equals("Inf_RCP"))
-                                            docSuppl.getInfRcp().setKppPay(infPayRcpChilds.item(kindex).getTextContent());
-                                        break;
-                                    case "CName_PAY":
-                                        if (infPayRcpChilds.item(kindex).getNodeName().equals("Inf_PAY"))
-                                            docSuppl.getInfPay().setcNamePay(infPayRcpChilds.item(kindex).getTextContent());
-                                        if (infPayRcpChilds.item(kindex).getNodeName().equals("Inf_RCP"))
-                                            docSuppl.getInfRcp().setcNamePay(infPayRcpChilds.item(kindex).getTextContent());
-                                        break;
-                                }
-                            }
-                        } else if (docChilds.item(jindex).getNodeName().startsWith("Bank")) {
-                            NodeList bankPayRcpChilds = docChilds.item(jindex).getChildNodes();
-                            for (int kindex = 0; kindex < bankPayRcpChilds.getLength(); kindex++) {
-                                if (bankPayRcpChilds.item(index).getNodeType() != Node.ELEMENT_NODE) {
-                                    continue;
-                                }
-                                switch (bankPayRcpChilds.item(kindex).getNodeName()) {
-                                    case "BS_PAY":
-                                        if (bankPayRcpChilds.item(kindex).getNodeName().equals("Bank_PAY"))
-                                            docSuppl.getBankPay().setBsPay(bankPayRcpChilds.item(kindex).getTextContent());
-                                        if (bankPayRcpChilds.item(kindex).getNodeName().equals("Bank_RCP"))
-                                            docSuppl.getBankRcp().setBsPay(bankPayRcpChilds.item(kindex).getTextContent());
-                                        break;
-                                    case "BIC_PAY":
-                                        if (bankPayRcpChilds.item(kindex).getNodeName().equals("Bank_PAY"))
-                                            docSuppl.getBankPay().setBicPay(bankPayRcpChilds.item(kindex).getTextContent());
-                                        if (bankPayRcpChilds.item(kindex).getNodeName().equals("Bank_RCP"))
-                                            docSuppl.getBankRcp().setBicPay(bankPayRcpChilds.item(kindex).getTextContent());
-                                        break;
-                                    case "BS_KS_PAY":
-                                        if (bankPayRcpChilds.item(kindex).getNodeName().equals("Bank_PAY"))
-                                            docSuppl.getBankPay().setBsKsPay(bankPayRcpChilds.item(kindex).getTextContent());
-                                        if (bankPayRcpChilds.item(kindex).getNodeName().equals("Bank_RCP"))
-                                            docSuppl.getBankRcp().setBsKsPay(bankPayRcpChilds.item(kindex).getTextContent());
-                                        break;
-                                }
-                            }
-                        }
-                    }
-                }
-                docList.add(doc);
-            }
-            System.out.println(docList);
+            System.out.println(dataToTransferList);
         }
     }
 
@@ -264,7 +169,7 @@ public class FileUploadServiceImpl implements FileUploadService {
     @Override
     public void processingFile(MultipartFile file) {
         saveZippedFiles(file);
-        parseZippedFilesJAXB();
+//        parseZippedFilesJAXB();
         parseZippedFilesDom();
 //        saveDataToTransfeFromJAXB();
     }

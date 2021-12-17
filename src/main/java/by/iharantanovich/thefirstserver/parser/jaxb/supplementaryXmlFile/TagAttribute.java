@@ -1,4 +1,4 @@
-package by.iharantanovich.thefirstserver.parser.jaxb.supplementaryXmlFile;
+package by.iharantanovich.thefirstserver.parser.jaxb.model.supplementaryXmlFile;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
